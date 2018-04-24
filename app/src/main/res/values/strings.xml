@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">MovieDB</string>
+    <string name="text_splash_bottom">Framgia Inc.</string>
+    <string name="title_app">App</string>
+    <string name="title_popular">Most Popular Movies</string>
+    <string name="title_now_playing">Now Playing</string>
+    <string name="text_detail_overview">Overview</string>
+    <string name="action_view_more">More</string>
+    <string name="action_trailer">Trailer</string>
+    <string name="title_upcoming">Upcoming</string>
+    <string name="title_top_rate">Top Rate</string>
+    <string name="title_genres">Genres</string>
+    <string name="detail_activity_release">Release Date: %s</string>
+    <string name="title_production">Production</string>
+    <string name="title_production_failed">Production (Load data failed)</string>
+    <string name="title_cast">Casts</string>
+    <string name="title_cast_failed">Casts (Load data failed)</string>
+    <string name="title_crew">Crews</string>
+    <string name="title_crew_failed">Crews (Load data failed)</string>
+    <string name="title_less">Less</string>
+    <string name="title_more">More</string>
+    <string name="title_loading">Loading…</string>
+    <string name="title_results">Results: %s</string>
+    <string name="title_results_genre">Genre: %s</string>
+    <string name="toast_failed">Failed:</string>
+    <string name="title_no_data">No data</string>
+    <string name="title_favourite_movies">My Favourite Movies</string>
+    <string name="detail_delete_movie_alert">Delete %s From Favourite Success</string>
+    <string name="detail_delete_movie_failed">Remove Favourite Failed</string>
+    <string name="detail_add_favourite_failed">Add Favourite Failed</string>
+    <string name="detail_add_favourite_success">Add %s To Favourite Success</string>
+    <string name="home_load_genres_failed">Genres Data Not Available!</string>
+    <string name="home_check_network">Please check network connection.</string>
+
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_primary">#00D474</color>
+    <color name="color_primary_dark">#343F4B</color>
+    <color name="color_blue_bayoux">#5A6978</color>
+    <color name="color_transparent">#00000000</color>
+    <color name="color_accent">#00D474</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_dark_pastel_green">#1D2120</color>
+    <color name="color_grey_chateau">#969FAA</color>
+    <color name="color_bali_hai">#46505B</color>
+    <color name="color_grey_chateau_transparent">#80969FAA</color>
+    <color name="color_pink">#E91E63</color>
+</resources>

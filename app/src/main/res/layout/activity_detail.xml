@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/detail_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:theme="@style/AppTheme">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <ImageView
+                android:id="@+id/image_detail_trailer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/image_detail_trailer_height"
+                android:fitsSystemWindows="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/image_trailer"
+                app:layout_collapseMode="parallax"/>
+
+            <Button
+                android:id="@+id/button_detail_play_trailer"
+                android:layout_width="@dimen/button_detail_play_width"
+                android:layout_height="@dimen/button_detail_play_height"
+                android:layout_gravity="center"
+                android:background="@drawable/button_play_round"
+                android:drawableLeft="@drawable/ic_play_arrow_white_24dp"
+                android:drawableStart="@drawable/ic_play_arrow_white_24dp"
+                android:gravity="start|center"
+                android:paddingLeft="@dimen/button_detail_play_padding_left"
+                android:paddingStart="@dimen/button_detail_play_padding_left"
+                android:text="@string/action_trailer"
+                android:textAllCaps="false"
+                android:textColor="@color/color_white"
+                android:visibility="gone"/>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_detail"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/color_transparent"
+                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_primary_dark"
+        android:clipToPadding="true"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.constraint.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image_detail_movie"
+                android:layout_width="@dimen/card_width"
+                android:layout_height="@dimen/card_height"
+                android:scaleType="fitXY"
+                android:src="@drawable/poster_3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.02"/>
+
+            <TextView
+                android:id="@+id/text_detail_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/text_detail_margin_left"
+                android:layout_marginStart="@dimen/text_detail_margin_left"
+                android:text="@string/app_name"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_splash_size"
+                app:layout_constraintLeft_toRightOf="@id/image_detail_movie"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/image_detail_movie"/>
+
+            <TextView
+                android:id="@+id/text_detail_information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="@color/color_grey_chateau"
+                android:textSize="@dimen/text_home_size"
+                app:layout_constraintLeft_toLeftOf="@+id/text_detail_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_detail_name"/>
+
+            <ImageView
+                android:id="@+id/image_detail_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_star_yellow_24dp"
+                app:layout_constraintLeft_toLeftOf="@+id/text_detail_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_detail_information"/>
+
+            <TextView
+                android:id="@+id/text_detail_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="@color/color_grey_chateau"
+                android:textSize="@dimen/text_home_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/image_detail_star"
+                app:layout_constraintHorizontal_bias="0.03"
+                app:layout_constraintLeft_toRightOf="@+id/image_detail_star"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/image_detail_star"/>
+
+            <Button
+                android:id="@+id/button_favourite"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:background="@drawable/ic_love_minus"
+                app:layout_constraintLeft_toLeftOf="@id/image_detail_star"
+                app:layout_constraintRight_toRightOf="@id/text_detail_rate"
+                app:layout_constraintTop_toBottomOf="@id/image_detail_star"/>
+
+            <TextView
+                android:id="@+id/text_detail_overview_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_title_margin_top"
+                android:text="@string/text_detail_overview"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_home_size"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/image_detail_movie"
+                app:layout_constraintTop_toBottomOf="@+id/image_detail_movie"/>
+
+            <TextView
+                android:id="@+id/text_detail_overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/text_detail_spacing_extra"
+                android:maxLines="3"
+                android:paddingEnd="@dimen/text_detail_overview_padding_right"
+                android:paddingRight="@dimen/text_detail_overview_padding_right"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_home_size"
+                app:layout_constraintLeft_toLeftOf="@+id/text_detail_overview_title"
+                app:layout_constraintTop_toBottomOf="@+id/text_detail_overview_title"/>
+
+            <Button
+                android:id="@+id/button_expand_overview"
+                android:layout_width="@dimen/button_detail_expand_width"
+                android:layout_height="@dimen/button_detail_expand_height"
+                android:background="@color/color_primary_dark"
+                android:text="@string/action_view_more"
+                android:textAllCaps="false"
+                android:textColor="@color/color_primary"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_detail_overview"/>
+
+            <include
+                android:id="@+id/include_production"
+                layout="@layout/recycler_movie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_title_margin_top"
+                app:layout_constraintLeft_toLeftOf="@id/image_detail_movie"
+                app:layout_constraintTop_toBottomOf="@id/button_expand_overview"/>
+
+            <include
+                android:id="@+id/include_cast"
+                layout="@layout/recycler_movie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_title_margin_top"
+                app:layout_constraintLeft_toLeftOf="@id/image_detail_movie"
+                app:layout_constraintTop_toBottomOf="@id/include_production"/>
+
+            <include
+                android:id="@+id/include_crew"
+                layout="@layout/recycler_movie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_title_margin_top"
+                app:layout_constraintLeft_toLeftOf="@id/image_detail_movie"
+                app:layout_constraintTop_toBottomOf="@id/include_cast"/>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>
