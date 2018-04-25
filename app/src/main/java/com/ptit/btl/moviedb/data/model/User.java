@@ -11,6 +11,9 @@ public class User {
     private String mImageLink;
     private List<Movie> mMovieList;
 
+    public User() {
+    }
+
     public User(String id, String userName, String imageLink, List<Movie> movieList) {
         mId = id;
         mUserName = userName;

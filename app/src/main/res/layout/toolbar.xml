@@ -20,15 +20,15 @@
         android:id="@+id/image_home_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_film_reel"
+        app:srcCompat="@drawable/ic_film_reel"
         app:layout_constraintBottom_toBottomOf="@id/toolbar"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintLeft_toLeftOf="@id/toolbar"
         app:layout_constraintRight_toRightOf="@id/toolbar"
         app:layout_constraintTop_toTopOf="@id/toolbar"/>
 
-    <Button
-        android:id="@+id/button_favourite"
+    <ImageView
+        android:id="@+id/imv_user"
         android:layout_width="@dimen/dp_36"
         android:layout_height="@dimen/dp_36"
         android:background="@drawable/ic_user_default"
@@ -71,7 +71,7 @@
         app:layout_constraintBottom_toBottomOf="@id/toolbar"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintLeft_toRightOf="@id/image_home_logo"
-        app:layout_constraintRight_toLeftOf="@id/button_favourite"
+        app:layout_constraintRight_toLeftOf="@id/imv_user"
         app:layout_constraintTop_toTopOf="@id/toolbar"
         app:searchIcon="@drawable/ic_search_white_24dp"/>
 </android.support.constraint.ConstraintLayout>

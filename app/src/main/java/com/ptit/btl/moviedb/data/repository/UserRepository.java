@@ -19,7 +19,7 @@ public class UserRepository implements UserDataSource.LocalDataSource {
         return sInstance;
     }
 
-    private UserRepository(
+    public UserRepository(
             UserDataSource.LocalDataSource localDataSource) {
         mLocalDataSource = localDataSource;
     }

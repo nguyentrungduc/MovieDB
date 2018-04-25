@@ -1,9 +1,12 @@
 package com.ptit.btl.moviedb.data.source.local;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.ptit.btl.moviedb.data.model.User;
 import com.ptit.btl.moviedb.data.source.UserDataSource;
 import com.ptit.btl.moviedb.data.source.local.sharedprf.SharedPrefsApi;
+import com.ptit.btl.moviedb.data.source.local.sharedprf.SharedPrefsImpl;
 import com.ptit.btl.moviedb.data.source.local.sharedprf.SharedPrefsKey;
 
 /**
@@ -12,9 +15,17 @@ import com.ptit.btl.moviedb.data.source.local.sharedprf.SharedPrefsKey;
 
 public class UserLocalDataSource implements UserDataSource.LocalDataSource {
     private SharedPrefsApi mSharedPrefsApi;
+    private static UserLocalDataSource sInstance;
 
     public UserLocalDataSource(SharedPrefsApi sharedPrefsApi) {
         mSharedPrefsApi = sharedPrefsApi;
+    }
+
+    public static UserLocalDataSource getInstance(Context context) {
+        if (sInstance == null) {
+            return new UserLocalDataSource(new SharedPrefsImpl(context));
+        }
+        return sInstance;
     }
 
     @Override

@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">MovieDB</string>
+    <string name="fb_login_protocol_scheme">fb169285467041083</string>
     <string name="text_splash_bottom">Framgia Inc.</string>
     <string name="title_app">App</string>
+    <string name="facebook_app_id">169285467041083</string>
     <string name="title_popular">Most Popular Movies</string>
     <string name="title_now_playing">Now Playing</string>
     <string name="text_detail_overview">Overview</string>

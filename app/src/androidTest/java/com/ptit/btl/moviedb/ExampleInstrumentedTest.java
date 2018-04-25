@@ -20,6 +20,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() throws Exception {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-        assertEquals("com.training.vungoctuan.moviedb", appContext.getPackageName());
+        assertEquals("com.ptit.btl.moviedb", appContext.getPackageName());
     }
 }

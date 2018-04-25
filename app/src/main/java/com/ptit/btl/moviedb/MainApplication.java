@@ -2,6 +2,8 @@ package com.ptit.btl.moviedb;
 
 import android.app.Application;
 
+import com.facebook.FacebookSdk;
+
 /**
  * Created by admin on 25/4/18.
  */

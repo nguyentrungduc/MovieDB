@@ -30,6 +30,18 @@ public class HomeContract {
         void onGetTopRateMoviesFailed();
 
         void onGetGenresMoviesFailed();
+
+        void onLoadUserSucess();
+
+        void onLoadUserFailed();
+
+        void onLoginFacebook();
+
+        void onLoginFacebookFailed();
+
+        void onLoginFacebookCanceled();
+
+        void openUserScreen();
     }
 
     public interface Presenter extends BasePresenter<View> {
@@ -46,5 +58,11 @@ public class HomeContract {
         void loadAfterNetworkChange();
 
         void loadUser();
+
+        void onClickUser();
+
+        void checkLogin();
+
+        void logOut();
     }
 }

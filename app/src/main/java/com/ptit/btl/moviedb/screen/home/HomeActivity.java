@@ -2,29 +2,53 @@ package com.ptit.btl.moviedb.screen.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.gson.Gson;
 import com.ptit.btl.moviedb.R;
 import com.ptit.btl.moviedb.data.model.Genre;
 import com.ptit.btl.moviedb.data.model.Movie;
+import com.ptit.btl.moviedb.data.repository.UserRepository;
 import com.ptit.btl.moviedb.data.source.local.MoviesDatabaseHelper;
+import com.ptit.btl.moviedb.data.source.local.UserLocalDataSource;
 import com.ptit.btl.moviedb.screen.BaseActivity;
 import com.ptit.btl.moviedb.screen.detail.DetailActivity;
-import com.ptit.btl.moviedb.screen.movies.MoviesByFavourite;
 import com.ptit.btl.moviedb.screen.movies.MoviesByGenreActivity;
 import com.ptit.btl.moviedb.screen.movies.MoviesBySearchActivity;
 import com.ptit.btl.moviedb.util.EndlessRecyclerOnScrollListener;
 import com.ptit.btl.moviedb.util.NetworkReceiver;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,6 +63,9 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         mProgressBarUpcoming, mProgressBarTopRate, mProgressBarGenres;
     private EndlessRecyclerOnScrollListener mPopularOnScrollListener,
         mNowPlayingOnScrollListener, mUpcomingOnScrollListener, mTopRateOnScrollListener;
+    CallbackManager mCallbackManager;
+    LoginButton mLoginButton;
+    private static final String TAG = HomeActivity.class.toString();
 
     public static Intent getInstance(Context context) {
         return new Intent(context, HomeActivity.class);
@@ -47,10 +74,13 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_home);
         MoviesDatabaseHelper.getInstance(this);
-        mPresenter = new HomePresenter(getMovieRepository());
+        mPresenter = new HomePresenter(getMovieRepository(),
+                new UserRepository(UserLocalDataSource.getInstance(this)));
         mPresenter.setView(this);
+        mPresenter.loadUser();
         initMoviesAdapters();
         initLayoutPopular();
         initLayoutNowPlaying();
@@ -60,6 +90,10 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         initToolbar();
         loadMovies();
         initNetworkBroadcast();
+      //  mPresenter.logOut();
+        mLoginButton = findViewById(R.id.loginButton);
+        onLoginFacebook();
+
     }
 
     private void initMoviesAdapters() {
@@ -184,11 +218,11 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 return false;
             }
         });
-        Button button = include.findViewById(R.id.button_favourite);
-        button.setOnClickListener(new View.OnClickListener() {
+        ImageView imv = include.findViewById(R.id.imv_user);
+        imv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(MoviesByFavourite.getInstance(getApplicationContext()));
+                mPresenter.onClickUser();
             }
         });
     }
@@ -278,5 +312,74 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     public void onGetGenresMoviesFailed() {
         Toast.makeText(this, R.string.home_load_genres_failed, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLoadUserSucess() {
+
+
+    }
+
+    @Override
+    public void onLoadUserFailed() {
+
+    }
+
+    @Override
+    public void onLoginFacebook() {
+
+        Log.d(TAG, "ddd");
+        mCallbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "sc");
+                Log.d(TAG, loginResult.getAccessToken().getToken() +" "+  loginResult.getAccessToken().getUserId());
+
+                final GraphRequest request = GraphRequest.newMeRequest(
+                        AccessToken.getCurrentAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object,
+                                                    GraphResponse response) {
+
+                            }
+                        });
+
+
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onLoginFacebookFailed() {
+
+    }
+
+    @Override
+    public void onLoginFacebookCanceled() {
+
+    }
+
+    @Override
+    public void openUserScreen() {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }

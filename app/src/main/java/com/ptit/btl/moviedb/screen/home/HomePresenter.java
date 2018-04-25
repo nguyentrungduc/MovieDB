@@ -1,9 +1,21 @@
 package com.ptit.btl.moviedb.screen.home;
 
+import android.util.Log;
+import android.widget.Toast;
+
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.Profile;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.ptit.btl.moviedb.data.model.Genre;
 import com.ptit.btl.moviedb.data.model.Movie;
+import com.ptit.btl.moviedb.data.model.User;
 import com.ptit.btl.moviedb.data.repository.GenreRepository;
 import com.ptit.btl.moviedb.data.repository.MovieRepository;
+import com.ptit.btl.moviedb.data.repository.UserRepository;
 import com.ptit.btl.moviedb.data.source.GenreDataSource;
 import com.ptit.btl.moviedb.data.source.MovieDataSource;
 import com.ptit.btl.moviedb.data.source.remote.GenreRemoteDataSource;
@@ -18,17 +30,22 @@ public class HomePresenter implements HomeContract.Presenter {
     private HomeContract.View mView;
     private MovieRepository mMovieRepository;
     private GenreRepository mGenreRepository;
+    private UserRepository mUserRepository;
     private int mPopularPage = 1;
     private int mNowPlayingPage = 1;
     private int mUpcomingPage = 1;
     private int mTopRatePage = 1;
+    private User mUser;
+    private CallbackManager mCallbackManager;
+    private static final String TAG = HomePresenter.class.toString();
     private boolean mIsPopularSuccess, mIsNowPlayingSuccess, mIsUpcomingSuccess,
         mIsTopRateSuccess, mIsGenresSuccess;
 
-    HomePresenter(MovieRepository movieRepository) {
+    HomePresenter(MovieRepository movieRepository , UserRepository userRepository) {
         mMovieRepository = movieRepository;
         mGenreRepository =
             GenreRepository.getInstance(GenreRemoteDataSource.getInstance());
+        mUserRepository = userRepository;
 
     }
 
@@ -173,6 +190,37 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void loadUser() {
+        if (AccessToken.getCurrentAccessToken() == null) {
+            Log.d(TAG, "no yser");
+            return; // already logged out
+        }
+        mUser = mUserRepository.getUser();
+        if (mUser != null) {
+            mView.onLoadUserSucess();
+        }
+        else {
+            mView.onLoadUserFailed();
+        }
 
     }
+
+    @Override
+    public void onClickUser() {
+        if (mUser == null) {
+            mView.onLoginFacebook();
+        }
+        else {
+            mView.openUserScreen();
+        }
+    }
+
+    @Override
+    public void checkLogin() {
+    }
+
+    @Override
+    public void logOut() {
+       // LoginManager.getInstance().logOut();
+    }
+
 }
