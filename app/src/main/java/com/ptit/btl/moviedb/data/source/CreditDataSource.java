@@ -8,6 +8,7 @@ import com.ptit.btl.moviedb.data.model.credit.Credit;
 public interface CreditDataSource {
     interface LoadProductionsCallback {
         void onCreditLoaded(Credit credits);
+
         void onDataNotAvailable();
     }
 

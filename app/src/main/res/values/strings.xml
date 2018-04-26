@@ -34,4 +34,16 @@
     <string name="home_load_genres_failed">Genres Data Not Available!</string>
     <string name="home_check_network">Please check network connection.</string>
 
+    <string name="title_name">name</string>
+    <string name="title_id">id</string>
+    <string name="title_email">email</string>
+    <string name="title_link">link</string>
+    <string name="title_fields">fields</string>
+    <string name="title_gender">gender</string>
+    <string name="title_cover">cover</string>
+    <string name="photos">photos</string>
+    <string name="title_images">images</string>
+    <string name="fields_name">id,name,link,email,gender,birthday,albums,education,cover,photos,friends,likes</string>
+    <string name="data">data</string>
+
 </resources>

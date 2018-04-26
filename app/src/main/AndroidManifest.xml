@@ -1,59 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.ptit.btl.moviedb"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ptit.btl.moviedb">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:name="com.ptit.btl.moviedb.MainApplication"
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
-        <provider android:authorities="com.facebook.app.FacebookContentProvider1234"
-            android:name="com.facebook.FacebookContentProvider"
-            android:exported="true" />
-        <activity android:name="com.ptit.btl.moviedb.screen.splash.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1234"
+            android:exported="true" />
+
+        <activity android:name=".screen.splash.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ptit.btl.moviedb.screen.home.HomeActivity"
+            android:name=".screen.home.HomeActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
-            android:name="com.ptit.btl.moviedb.screen.detail.DetailActivity"
+            android:name=".screen.detail.DetailActivity"
             android:label=""
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ptit.btl.moviedb.screen.movies.MoviesActivity"
-            android:theme="@style/AppTheme"/>
+            android:name=".screen.movies.MoviesActivity"
+            android:theme="@style/AppTheme" />
         <activity
-            android:name="com.ptit.btl.moviedb.screen.movies.MoviesByCastActivity"
-            android:theme="@style/AppTheme"/>
+            android:name=".screen.movies.MoviesByCastActivity"
+            android:theme="@style/AppTheme" />
         <activity
-            android:name="com.ptit.btl.moviedb.screen.movies.MoviesByProductionActivity"
-            android:theme="@style/AppTheme"/>
-        <activity android:name="com.ptit.btl.moviedb.screen.movies.MoviesByCrewActivity"/>
-        <activity android:name="com.ptit.btl.moviedb.screen.movies.MoviesBySearchActivity"/>
+            android:name=".screen.movies.MoviesByProductionActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".screen.movies.MoviesByCrewActivity" />
+        <activity android:name=".screen.movies.MoviesBySearchActivity" />
         <activity
-            android:name="com.ptit.btl.moviedb.screen.youtube.YoutubeActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name="com.ptit.btl.moviedb.screen.movies.MoviesByGenreActivity"/>
-        <activity android:name="com.ptit.btl.moviedb.screen.movies.MoviesByFavourite"/>
+            android:name=".screen.youtube.YoutubeActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".screen.movies.MoviesByGenreActivity" />
+        <activity android:name=".screen.movies.MoviesByFavourite" />
+        <activity android:name=".screen.timeline.TimelineActivity"></activity>
     </application>
+
 </manifest>

@@ -3,10 +3,14 @@ package com.ptit.btl.moviedb.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by admin on 25/4/18.
  */
-public class Movie implements Parcelable {
+public class Movie extends RealmObject implements Parcelable {
+    @PrimaryKey
     private String mId;
     private String mTitle;
     private String mVoteAverage;
@@ -15,6 +19,7 @@ public class Movie implements Parcelable {
     private String mOverview;
     private String mReleaseDate;
     private boolean mIsFavourite;
+    private long mTime;
 
     public Movie() {
     }
@@ -104,6 +109,14 @@ public class Movie implements Parcelable {
 
     public void setFavourite(boolean favourite) {
         mIsFavourite = favourite;
+    }
+
+    public long getTime() {
+        return mTime;
+    }
+
+    public void setTime(long time) {
+        mTime = time;
     }
 
     @Override

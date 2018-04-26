@@ -10,6 +10,7 @@ import java.util.List;
 public interface ProductionDataSource {
     interface LoadProductionsCallback {
         void onProductionsLoaded(List<Production> productions);
+
         void onDataNotAvailable();
     }
 

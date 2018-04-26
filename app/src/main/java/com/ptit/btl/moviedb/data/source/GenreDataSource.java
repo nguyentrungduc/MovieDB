@@ -10,6 +10,7 @@ import java.util.List;
 public interface GenreDataSource {
     interface LoadGenresCallback {
         void onGenresLoaded(List<Genre> genres);
+
         void onDataNotAvailable();
     }
 

@@ -10,6 +10,7 @@ import java.util.List;
 public interface TrailerDataSource {
     interface LoadTrailersCallback {
         void onTrailersLoaded(List<Trailer> trailers);
+
         void onDataNotAvailable();
     }
 

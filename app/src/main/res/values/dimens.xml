@@ -33,4 +33,8 @@
     <dimen name="dp_24">24dp</dimen>
     <dimen name="dp_53">53dp</dimen>
     <dimen name="dp_36">36dp</dimen>
+    <dimen name="dp_60">60dp</dimen>
+    <dimen name="dp_5">5dp</dimen>
+    <dimen name="dp_120">120dp</dimen>
+    <dimen name="dp_2">2dp</dimen>
 </resources>

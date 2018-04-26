@@ -3,6 +3,7 @@ package com.ptit.btl.moviedb.data.source.local;
 import android.content.Context;
 
 import com.ptit.btl.moviedb.data.model.Movie;
+import com.ptit.btl.moviedb.data.source.DbCallBack;
 import com.ptit.btl.moviedb.data.source.MovieDataSource;
 
 import java.util.List;
@@ -26,22 +27,22 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
     }
 
     @Override
-    public void addMovieToLocal(Movie movie) throws Exception {
+    public void addMovieToLocal(Movie movie, DbCallBack dbCallBack) throws Exception {
         mDatabase.addMovies(movie);
     }
 
     @Override
-    public void deleteMovieFromLocal(Movie movie) throws Exception {
+    public void deleteMovieFromLocal(Movie movie, DbCallBack dbCallBack) throws Exception {
         mDatabase.deleteMovies(movie);
     }
 
     @Override
-    public List<Movie> getMoviesFromLocal() {
+    public List<Movie> getMoviesFromLocal(DbCallBack dbCallBack) {
         return mDatabase.getAllMovies();
     }
 
     @Override
-    public boolean isFavouriteMovie(String movieId) throws Exception {
+    public boolean isFavouriteMovie(String movieId, DbCallBack dbCallBack) throws Exception {
         return mDatabase.checkExistMovie(movieId);
     }
 }

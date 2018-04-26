@@ -43,17 +43,15 @@ import com.ptit.btl.moviedb.screen.movies.MoviesBySearchActivity;
 import com.ptit.btl.moviedb.util.EndlessRecyclerOnScrollListener;
 import com.ptit.btl.moviedb.util.NetworkReceiver;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by admin on 25/4/18.
  */
+
 public class HomeActivity extends BaseActivity implements HomeContract.View {
     private HomeContract.Presenter mPresenter;
     private HomeAdapter mPopularMoviesAdapter, mNowPlayingMoviesAdapter,
@@ -92,7 +90,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         initNetworkBroadcast();
       //  mPresenter.logOut();
         mLoginButton = findViewById(R.id.loginButton);
-        onLoginFacebook();
 
     }
 
@@ -328,13 +325,14 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     public void onLoginFacebook() {
 
-        Log.d(TAG, "ddd");
         mCallbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
         LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "sc");
-                Log.d(TAG, loginResult.getAccessToken().getToken() +" "+  loginResult.getAccessToken().getUserId());
+                Log.d(TAG, loginResult.getAccessToken().getToken() +" "+
+                        loginResult.getAccessToken().getUserId());
 
                 final GraphRequest request = GraphRequest.newMeRequest(
                         AccessToken.getCurrentAccessToken(),
@@ -342,22 +340,24 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                             @Override
                             public void onCompleted(JSONObject object,
                                                     GraphResponse response) {
-
+                                String mName = object.optString(getString(R.string.title_name));
+                                String mId = object.optString(getString(R.string.title_id));
+                                String mGender = object.optString(getString(R.string.title_gender));
+                                String mEmail = object.optString(getString(R.string.title_email));
+                                String mLink = object.optString(getString(R.string.title_link));
                             }
                         });
-
-
 
             }
 
             @Override
             public void onCancel() {
-
+                onLoginFacebookCanceled();
             }
 
             @Override
             public void onError(FacebookException error) {
-
+                onLoadUserFailed();
             }
         });
 

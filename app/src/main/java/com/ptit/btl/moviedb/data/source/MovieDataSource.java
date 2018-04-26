@@ -10,19 +10,26 @@ import java.util.List;
 public interface MovieDataSource {
     interface LoadMoviesCallback {
         void onMoviesLoaded(List<Movie> movies);
+
         void onDataNotAvailable();
     }
 
     interface LocalDataSource {
-        void addMovieToLocal(Movie movie) throws Exception;
-        void deleteMovieFromLocal(Movie movie) throws Exception;
-        List<Movie> getMoviesFromLocal() throws Exception;
-        boolean isFavouriteMovie(String movieId) throws Exception;
+        void addMovieToLocal(Movie movie, DbCallBack dbCallBack) throws Exception;
+
+        void deleteMovieFromLocal(Movie movie, DbCallBack dbCallBack) throws Exception;
+
+        List<Movie> getMoviesFromLocal(DbCallBack dbCallBack) throws Exception;
+
+        boolean isFavouriteMovie(String movieId, DbCallBack dbCallBack) throws Exception;
+
     }
 
     interface RemoteDataSource {
         void getMoviesByCategories(String categories, String language, int page,
                                    LoadMoviesCallback callback);
+
         void getMoviesByUrl(String id, String url, LoadMoviesCallback callback);
+
     }
 }
