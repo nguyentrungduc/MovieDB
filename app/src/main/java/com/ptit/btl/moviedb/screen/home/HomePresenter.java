@@ -223,4 +223,11 @@ public class HomePresenter implements HomeContract.Presenter {
        // LoginManager.getInstance().logOut();
     }
 
+    @Override
+    public void saveUser(User user) {
+        Log.d(TAG, "save"+user.toString());
+        mUserRepository.saveUser(user);
+        mView.onSaveUserSucess(user);
+    }
+
 }

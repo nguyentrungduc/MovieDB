@@ -2,6 +2,7 @@ package com.ptit.btl.moviedb.screen.home;
 
 import com.ptit.btl.moviedb.data.model.Genre;
 import com.ptit.btl.moviedb.data.model.Movie;
+import com.ptit.btl.moviedb.data.model.User;
 import com.ptit.btl.moviedb.screen.BasePresenter;
 
 import java.util.List;
@@ -42,6 +43,8 @@ public class HomeContract {
         void onLoginFacebookCanceled();
 
         void openUserScreen();
+
+        void onSaveUserSucess(User user);
     }
 
     public interface Presenter extends BasePresenter<View> {
@@ -64,5 +67,7 @@ public class HomeContract {
         void checkLogin();
 
         void logOut();
+        
+        void saveUser(User user);
     }
 }

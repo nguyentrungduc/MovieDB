@@ -19,7 +19,7 @@
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider1234"
+            android:authorities="com.facebook.app.FacebookContentProvider169285467041083"
             android:exported="true" />
 
         <activity android:name=".screen.splash.SplashActivity">

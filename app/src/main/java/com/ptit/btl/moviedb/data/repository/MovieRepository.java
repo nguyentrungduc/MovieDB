@@ -1,6 +1,7 @@
 package com.ptit.btl.moviedb.data.repository;
 
 import com.ptit.btl.moviedb.data.model.Movie;
+import com.ptit.btl.moviedb.data.source.DbCallBack;
 import com.ptit.btl.moviedb.data.source.MovieDataSource;
 import com.ptit.btl.moviedb.data.source.local.MovieLocalDataSource;
 import com.ptit.btl.moviedb.data.source.remote.MovieRemoteDataSource;
@@ -10,8 +11,7 @@ import java.util.List;
 /**
  * Created by admin on 25/4/18.
  */
-public class MovieRepository implements MovieDataSource.RemoteDataSource,
-    MovieDataSource.LocalDataSource {
+public class MovieRepository  {
     private static MovieRepository sInstance;
     private MovieRemoteDataSource mMovieRemoteDataSource;
     private MovieLocalDataSource mMovieLocalDataSource;
@@ -30,7 +30,6 @@ public class MovieRepository implements MovieDataSource.RemoteDataSource,
         return sInstance;
     }
 
-    @Override
     public void getMoviesByCategories(String categories, String language,
                                       int page,
                                       MovieDataSource.LoadMoviesCallback callback) {
@@ -41,29 +40,24 @@ public class MovieRepository implements MovieDataSource.RemoteDataSource,
             callback);
     }
 
-    @Override
     public void getMoviesByUrl(String id, String url,
                                MovieDataSource.LoadMoviesCallback callback) {
         mMovieRemoteDataSource.getMoviesByUrl(id, url, callback);
     }
 
-    @Override
-    public void addMovieToLocal(Movie movie) throws Exception {
-        mMovieLocalDataSource.addMovieToLocal(movie);
+    public void addMovieToLocal(Movie movie, DbCallBack dbCallBack) throws Exception {
+        mMovieLocalDataSource.addMovieToLocal(movie, dbCallBack);
     }
 
-    @Override
-    public void deleteMovieFromLocal(Movie movie) throws Exception {
-        mMovieLocalDataSource.deleteMovieFromLocal(movie);
+    public void deleteMovieFromLocal(Movie movie, DbCallBack dbCallBack) throws Exception {
+        mMovieLocalDataSource.deleteMovieFromLocal(movie, dbCallBack);
     }
 
-    @Override
-    public List<Movie> getMoviesFromLocal() {
-        return mMovieLocalDataSource.getMoviesFromLocal();
+    public List<Movie> getMoviesFromLocal(DbCallBack dbCallBack) {
+        return mMovieLocalDataSource.getMoviesFromLocal(dbCallBack);
     }
 
-    @Override
-    public boolean isFavouriteMovie(String id) throws Exception {
-        return mMovieLocalDataSource.isFavouriteMovie(id);
+    public boolean isFavouriteMovie(String id, DbCallBack dbCallBack) throws Exception {
+        return mMovieLocalDataSource.isFavouriteMovie(id, dbCallBack);
     }
 }

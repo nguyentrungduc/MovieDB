@@ -9,6 +9,7 @@ import com.ptit.btl.moviedb.data.repository.MovieRepository;
 import com.ptit.btl.moviedb.data.repository.ProductionRepository;
 import com.ptit.btl.moviedb.data.repository.TrailerRepository;
 import com.ptit.btl.moviedb.data.source.CreditDataSource;
+import com.ptit.btl.moviedb.data.source.DbCallBack;
 import com.ptit.btl.moviedb.data.source.ProductionDataSource;
 import com.ptit.btl.moviedb.data.source.TrailerDataSource;
 import com.ptit.btl.moviedb.data.source.remote.CreditRemoteDataSource;
@@ -108,7 +109,17 @@ public class DetailPresenter implements DetailContract.Presenter {
     @Override
     public void addMovieToFavourite(Movie movie) {
         try {
-            mMovieRepository.addMovieToLocal(movie);
+            mMovieRepository.addMovieToLocal(movie, new DbCallBack() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
             mView.onAddFavouriteSuccess(movie);
         } catch (Exception e) {
             mView.onAddFavouriteFailed();
@@ -118,7 +129,17 @@ public class DetailPresenter implements DetailContract.Presenter {
     @Override
     public void deleteMovieFromFavourite(Movie movie) {
         try {
-            mMovieRepository.deleteMovieFromLocal(movie);
+            mMovieRepository.deleteMovieFromLocal(movie, new DbCallBack() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
             mView.onDeleteFavouriteSuccess(movie);
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,7 +150,17 @@ public class DetailPresenter implements DetailContract.Presenter {
     @Override
     public boolean checkMovieFavouriteExisting(String movieId) {
         try {
-            boolean isFavourite = mMovieRepository.isFavouriteMovie(movieId);
+            boolean isFavourite = mMovieRepository.isFavouriteMovie(movieId, new DbCallBack() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
             mView.isFavouriteMovie(isFavourite);
             return isFavourite;
         } catch (Exception e) {

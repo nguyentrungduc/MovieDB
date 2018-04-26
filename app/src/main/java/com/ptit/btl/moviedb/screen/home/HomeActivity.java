@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -33,6 +34,7 @@ import com.google.gson.Gson;
 import com.ptit.btl.moviedb.R;
 import com.ptit.btl.moviedb.data.model.Genre;
 import com.ptit.btl.moviedb.data.model.Movie;
+import com.ptit.btl.moviedb.data.model.User;
 import com.ptit.btl.moviedb.data.repository.UserRepository;
 import com.ptit.btl.moviedb.data.source.local.MoviesDatabaseHelper;
 import com.ptit.btl.moviedb.data.source.local.UserLocalDataSource;
@@ -40,8 +42,10 @@ import com.ptit.btl.moviedb.screen.BaseActivity;
 import com.ptit.btl.moviedb.screen.detail.DetailActivity;
 import com.ptit.btl.moviedb.screen.movies.MoviesByGenreActivity;
 import com.ptit.btl.moviedb.screen.movies.MoviesBySearchActivity;
+import com.ptit.btl.moviedb.screen.timeline.TimelineActivity;
 import com.ptit.btl.moviedb.util.EndlessRecyclerOnScrollListener;
 import com.ptit.btl.moviedb.util.NetworkReceiver;
+import com.ptit.btl.moviedb.util.StringUtils;
 
 import org.json.JSONObject;
 
@@ -63,6 +67,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         mNowPlayingOnScrollListener, mUpcomingOnScrollListener, mTopRateOnScrollListener;
     CallbackManager mCallbackManager;
     LoginButton mLoginButton;
+    private ImageView imv;
     private static final String TAG = HomeActivity.class.toString();
 
     public static Intent getInstance(Context context) {
@@ -215,7 +220,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 return false;
             }
         });
-        ImageView imv = include.findViewById(R.id.imv_user);
+        imv = include.findViewById(R.id.imv_user);
         imv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -333,6 +338,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 Log.d(TAG, "sc");
                 Log.d(TAG, loginResult.getAccessToken().getToken() +" "+
                         loginResult.getAccessToken().getUserId());
+                Log.d(TAG, AccessToken.getCurrentAccessToken().toString()+"fff");
 
                 final GraphRequest request = GraphRequest.newMeRequest(
                         AccessToken.getCurrentAccessToken(),
@@ -340,14 +346,21 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                             @Override
                             public void onCompleted(JSONObject object,
                                                     GraphResponse response) {
+                                Log.d(TAG,"aaa"+ object.toString());
                                 String mName = object.optString(getString(R.string.title_name));
                                 String mId = object.optString(getString(R.string.title_id));
                                 String mGender = object.optString(getString(R.string.title_gender));
                                 String mEmail = object.optString(getString(R.string.title_email));
                                 String mLink = object.optString(getString(R.string.title_link));
+                                User user = new User(mId, mName, StringUtils.getURLAvatar(mId));
+                                mPresenter.saveUser(user);
+
                             }
                         });
-
+                Bundle parameters = new Bundle();
+                parameters.putString(getString(R.string.fields), getString(R.string.fields_name));
+                request.setParameters(parameters);
+                request.executeAsync();
             }
 
             @Override
@@ -365,21 +378,33 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     @Override
     public void onLoginFacebookFailed() {
+        Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void onLoginFacebookCanceled() {
+        Toast.makeText(this, "Canceled Login", Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void openUserScreen() {
+        startActivity(TimelineActivity.getInstance(this));
+
+    }
+
+    @Override
+    public void onSaveUserSucess(User user) {
+        Glide.with(this).load(user.getImageLink())
+                .into(imv);
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "datasa" + data.toString());
     }
 }

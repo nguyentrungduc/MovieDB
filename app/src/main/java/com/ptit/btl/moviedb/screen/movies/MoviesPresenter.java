@@ -2,6 +2,7 @@ package com.ptit.btl.moviedb.screen.movies;
 
 import com.ptit.btl.moviedb.data.model.Movie;
 import com.ptit.btl.moviedb.data.repository.MovieRepository;
+import com.ptit.btl.moviedb.data.source.DbCallBack;
 import com.ptit.btl.moviedb.data.source.MovieDataSource;
 
 import java.util.List;
@@ -47,7 +48,17 @@ public class MoviesPresenter implements MoviesContract.Presenter {
 
     @Override
     public void getFavouriteMovie() {
-        List<Movie> movies = mMovieRepository.getMoviesFromLocal();
+        List<Movie> movies = mMovieRepository.getMoviesFromLocal(new DbCallBack() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
         if (movies == null || movies.size() == 0)
             mView.onGetMoviesFailed();
         else
@@ -57,7 +68,17 @@ public class MoviesPresenter implements MoviesContract.Presenter {
     @Override
     public void addMovieToFavourite(Movie movie) {
         try {
-            mMovieRepository.addMovieToLocal(movie);
+            mMovieRepository.addMovieToLocal(movie, new DbCallBack() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
             mView.onAddFavouriteSuccess(movie);
         } catch (Exception e) {
             mView.onAddFavouriteFailed();
@@ -68,7 +89,17 @@ public class MoviesPresenter implements MoviesContract.Presenter {
     @Override
     public void deleteMovieFromFavourite(Movie movie) {
         try {
-            mMovieRepository.deleteMovieFromLocal(movie);
+            mMovieRepository.deleteMovieFromLocal(movie, new DbCallBack() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
             mView.onDeleteFavouriteSuccess(movie);
         } catch (Exception e) {
             mView.onDeleteFavouriteFailed();
@@ -80,7 +111,17 @@ public class MoviesPresenter implements MoviesContract.Presenter {
         for (int i = 0; i < movies.size(); i++) {
             try {
                 movies.get(i)
-                    .setFavourite(mMovieRepository.isFavouriteMovie(movies.get(i).getId()));
+                    .setFavourite(mMovieRepository.isFavouriteMovie(movies.get(i).getId(), new DbCallBack() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError() {
+
+                        }
+                    }));
             } catch (Exception e) {
                 e.printStackTrace();
             }

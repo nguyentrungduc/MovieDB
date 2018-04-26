@@ -9,9 +9,16 @@ public class User {
     private String mId;
     private String mUserName;
     private String mImageLink;
+    private String mEmail;
     private List<Movie> mMovieList;
 
     public User() {
+    }
+
+    public User(String id, String userName, String imageLink) {
+        mId = id;
+        mUserName = userName;
+        mImageLink = imageLink;
     }
 
     public User(String id, String userName, String imageLink, List<Movie> movieList) {
@@ -19,6 +26,14 @@ public class User {
         mUserName = userName;
         mImageLink = imageLink;
         mMovieList = movieList;
+    }
+
+    public String getEmail() {
+        return mEmail;
+    }
+
+    public void setEmail(String email) {
+        mEmail = email;
     }
 
     public String getId() {
