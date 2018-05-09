@@ -190,13 +190,9 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void loadUser() {
-        if (AccessToken.getCurrentAccessToken() == null) {
-            Log.d(TAG, "no yser");
-            return; // already logged out
-        }
         mUser = mUserRepository.getUser();
         if (mUser != null) {
-            mView.onLoadUserSucess();
+            mView.onLoadUserSucess(mUser);
         }
         else {
             mView.onLoadUserFailed();
@@ -206,12 +202,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void onClickUser() {
-        if (mUser == null) {
-            mView.onLoginFacebook();
-        }
-        else {
-            mView.openUserScreen();
-        }
+
     }
 
     @Override

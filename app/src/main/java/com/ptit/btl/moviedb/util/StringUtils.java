@@ -8,7 +8,7 @@ public class StringUtils {
     public static String getURLAvatar(String id) {
         String url = "https://graph.facebook.com/" +
                 id +
-                "/?fields=picture&type=large";
+                "/picture?type=square";
         return url;
 
     }

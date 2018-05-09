@@ -16,11 +16,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <ImageView
-        android:id="@+id/image_home_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_film_reel"
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/loginButton"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="@id/toolbar"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintLeft_toLeftOf="@id/toolbar"
@@ -49,7 +48,7 @@
         android:textSize="@dimen/text_home_title_size"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/toolbar"
-        app:layout_constraintLeft_toRightOf="@id/image_home_logo"
+        app:layout_constraintLeft_toRightOf="@id/loginButton"
         app:layout_constraintTop_toTopOf="@id/toolbar"/>
 
     <TextView
@@ -70,7 +69,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/toolbar"
         app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintLeft_toRightOf="@id/image_home_logo"
+        app:layout_constraintLeft_toRightOf="@id/loginButton"
         app:layout_constraintRight_toLeftOf="@id/imv_user"
         app:layout_constraintTop_toTopOf="@id/toolbar"
         app:searchIcon="@drawable/ic_search_white_24dp"/>

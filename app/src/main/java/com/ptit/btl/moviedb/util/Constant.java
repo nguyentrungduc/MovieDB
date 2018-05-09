@@ -40,7 +40,7 @@ public class Constant {
     public static final String BUNDLE_GENRE_ID = "BUNDLE_GENRE_ID";
     public static final String BUNDLE_GENRE_NAME = "BUNDLE_GENRE_NAME";
     private static final String API_KEY = "api_key=" + BuildConfig.API_KEY;
-   // public static final String API_KEY_YOUTUBE = BuildConfig.API_YOUTUBE_KEY;
+    public static final String API_KEY_YOUTUBE = BuildConfig.API_YOUTUBE_KEY;
 
     @StringDef({API_URL_MOVIE_POPULAR, API_URL_MOVIE_NOW_PLAYING,
         API_URL_MOVIE_UPCOMING, API_URL_MOVIE_TOP_RATED, API_URL_MOVIE_GENRES,

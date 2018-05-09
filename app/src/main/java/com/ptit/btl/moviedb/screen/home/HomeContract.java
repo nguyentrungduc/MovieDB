@@ -32,7 +32,7 @@ public class HomeContract {
 
         void onGetGenresMoviesFailed();
 
-        void onLoadUserSucess();
+        void onLoadUserSucess(User user);
 
         void onLoadUserFailed();
 

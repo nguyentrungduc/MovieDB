@@ -29,7 +29,7 @@ public class YoutubeActivity extends YouTubeBaseActivity
         super.onCreate(bundle);
         setContentView(R.layout.activity_youtube);
         YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player);
-       // youTubePlayerView.initialize(Constant.API_KEY_YOUTUBE, this);
+        youTubePlayerView.initialize(Constant.API_KEY_YOUTUBE, this);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.ptit.btl.moviedb.screen.detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.ptit.btl.moviedb.R;
 import com.ptit.btl.moviedb.data.model.Movie;
 import com.ptit.btl.moviedb.data.model.Production;
@@ -38,7 +41,7 @@ import java.util.List;
 public class DetailActivity extends BaseActivity implements DetailContract.View,
     View.OnClickListener {
     private DetailContract.Presenter mPresenter;
-    private Button mButtonExpand, mButtonPlayTrailer;
+    private Button mButtonExpand, mButtonPlayTrailer, shareButton;
     private Button mButtonFavourite;
     private TextView mTextDetailOverview, mTextProduction, mTextCast, mTextCrew;
     private ProgressBar mProgressBarProduction, mProgressBarCast, mProgressBarCrew;
@@ -48,6 +51,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
     private CrewAdapter mCrewAdapter;
     private Movie mMovie;
     private List<Trailer> mTrailers;
+    private ShareDialog mShareDialog;
 
     public static Intent getInstance(Context context, Movie movie) {
         Intent intent = new Intent(context, DetailActivity.class);
@@ -162,6 +166,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
         mButtonPlayTrailer.setOnClickListener(this);
         mButtonFavourite = findViewById(R.id.button_favourite);
         mButtonFavourite.setOnClickListener(this);
+        findViewById(R.id.btnShare).setOnClickListener(this);
     }
 
     private void initImageViewComponents() {
@@ -228,6 +233,21 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
                     mPresenter.addMovieToFavourite(mMovie);
                 }
                 break;
+            case R.id.btnShare:
+                share();
+                break;
+
+        }
+    }
+
+    private void share() {
+        mShareDialog = new ShareDialog(this);
+        ShareLinkContent shareLinkContent = new ShareLinkContent.Builder()
+                .setContentTitle("Good! ").
+                        setContentUrl(Uri.parse("https://www.themoviedb.org/movie/" + mMovie.getId()))
+                .build();
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            mShareDialog.show(shareLinkContent);
         }
     }
 

@@ -40,6 +40,7 @@ import com.ptit.btl.moviedb.data.source.local.MoviesDatabaseHelper;
 import com.ptit.btl.moviedb.data.source.local.UserLocalDataSource;
 import com.ptit.btl.moviedb.screen.BaseActivity;
 import com.ptit.btl.moviedb.screen.detail.DetailActivity;
+import com.ptit.btl.moviedb.screen.movies.MoviesByFavourite;
 import com.ptit.btl.moviedb.screen.movies.MoviesByGenreActivity;
 import com.ptit.btl.moviedb.screen.movies.MoviesBySearchActivity;
 import com.ptit.btl.moviedb.screen.timeline.TimelineActivity;
@@ -83,7 +84,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         mPresenter = new HomePresenter(getMovieRepository(),
                 new UserRepository(UserLocalDataSource.getInstance(this)));
         mPresenter.setView(this);
-        mPresenter.loadUser();
         initMoviesAdapters();
         initLayoutPopular();
         initLayoutNowPlaying();
@@ -93,9 +93,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         initToolbar();
         loadMovies();
         initNetworkBroadcast();
-      //  mPresenter.logOut();
         mLoginButton = findViewById(R.id.loginButton);
-
+        mPresenter.loadUser();
     }
 
     private void initMoviesAdapters() {
@@ -224,7 +223,14 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         imv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.onClickUser();
+                startActivity(MoviesByFavourite.getInstance(getApplicationContext()));
+            }
+        });
+        findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onLogin");
+                onLoginFacebook();
             }
         });
     }
@@ -317,9 +323,9 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     }
 
     @Override
-    public void onLoadUserSucess() {
-
-
+    public void onLoadUserSucess(User user) {
+        Glide.with(this).load(user.getImageLink())
+                .into(imv);
     }
 
     @Override
@@ -331,14 +337,21 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     public void onLoginFacebook() {
 
         mCallbackManager = CallbackManager.Factory.create();
+
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
-        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+        mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "sc");
-                Log.d(TAG, loginResult.getAccessToken().getToken() +" "+
-                        loginResult.getAccessToken().getUserId());
-                Log.d(TAG, AccessToken.getCurrentAccessToken().toString()+"fff");
+
+                    Log.d(TAG, "sc");
+                    Log.d(TAG, loginResult.getAccessToken().getToken() +" "+  loginResult.getAccessToken().getUserId());
+
+
+                    mLoginButton.setReadPermissions(Arrays.asList(
+                            "public_profile", "email", "user_birthday","user_about_me", "user_friends","user_photos","user_education_history","user_work_history",
+                            "user_posts","read_custom_friendlists","user_friends","user_likes"));
+
+                    AccessToken.getCurrentAccessToken().getPermissions();
 
                 final GraphRequest request = GraphRequest.newMeRequest(
                         AccessToken.getCurrentAccessToken(),
@@ -405,6 +418,5 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "datasa" + data.toString());
     }
 }
