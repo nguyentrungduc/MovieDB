@@ -1,5 +1,7 @@
 package com.ptit.btl.moviedb.util;
 
+import android.util.Log;
+
 import com.ptit.btl.moviedb.data.model.Genre;
 import com.ptit.btl.moviedb.data.model.Movie;
 import com.ptit.btl.moviedb.data.model.Production;
@@ -7,6 +9,7 @@ import com.ptit.btl.moviedb.data.model.Trailer;
 import com.ptit.btl.moviedb.data.model.credit.Cast;
 import com.ptit.btl.moviedb.data.model.credit.Credit;
 import com.ptit.btl.moviedb.data.model.credit.Crew;
+import com.ptit.btl.moviedb.data.model.person.Person;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -177,5 +180,35 @@ class RequestAPIUtils {
             genres.add(genre);
         }
         return genres;
+    }
+
+    static Person parseJsonToPerson(String json) throws JSONException {
+        Log.d("parseJsonToPerson", json);
+        JSONObject jsonObject = new JSONObject(json);
+        Person person = new Person();
+        person.setId(jsonObject.getInt(Constant.ApiResultKey.API_PERSON_KEY_ID));
+        person.setName(jsonObject.getString(Constant.ApiResultKey.API_PERSON_KEY_NAME));
+        person.setBiography(jsonObject.getString(Constant.ApiResultKey.API_PERSON_KEY_BIOGRAPHY));
+        List<String> akas = new ArrayList<>();
+        JSONArray array = jsonObject.getJSONArray(Constant.ApiResultKey.API_PERSON_KEY_AKA);
+        for (int i = 0; i < array.length(); i++) {
+            akas.add(array.get(i).toString());
+        }
+        person.setAka(akas);
+        person.setBirthDay(jsonObject.getString(Constant.ApiResultKey.API_PERSON_KEY_DATE_OF_BIRTH));
+        person.setPlaceOfBirth(jsonObject.getString(Constant.ApiResultKey.API_PERSON_KEY_PLACE_OF_BIRTH));
+        person.setProfilePicturePath(jsonObject.getString(Constant.ApiResultKey.API_PERSON_KEY_PROFILE_PICTURE));
+        return person;
+    }
+
+    static List<String> parseJsonToImages(String json) throws JSONException {
+        JSONObject container = new JSONObject(json);
+        JSONArray array = container.getJSONArray(Constant.ApiResultKey.API_PERSON_KEY_IMAGES_CONTAINER);
+        List<String> images = new ArrayList<>();
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject object = array.getJSONObject(i);
+            images.add(object.getString(Constant.ApiResultKey.API_PERSON_KEY_IMAGES));
+        }
+        return images;
     }
 }

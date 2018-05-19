@@ -37,4 +37,8 @@
     <dimen name="dp_5">5dp</dimen>
     <dimen name="dp_120">120dp</dimen>
     <dimen name="dp_2">2dp</dimen>
+    <dimen name="app_padding">16dp</dimen>
+    <dimen name="content_margin_top">4dp</dimen>
+    <dimen name="text_size_content">12sp</dimen>
+    <dimen name="title_margin">5dp</dimen>
 </resources>

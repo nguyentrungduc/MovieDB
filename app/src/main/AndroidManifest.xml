@@ -63,6 +63,9 @@
         <activity android:name=".screen.movies.MoviesByGenreActivity" />
         <activity android:name=".screen.movies.MoviesByFavourite" />
         <activity android:name=".screen.timeline.TimelineActivity"></activity>
+        <activity
+            android:name=".screen.cast.CastInformationActivity"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

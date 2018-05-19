@@ -41,4 +41,5 @@ dependencies {
     implementation 'com.facebook.android:facebook-share:[4,5)'
     implementation 'com.facebook.android:facebook-places:[4,5)'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

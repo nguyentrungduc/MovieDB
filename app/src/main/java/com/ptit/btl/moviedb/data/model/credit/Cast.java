@@ -49,4 +49,15 @@ public class Cast {
     public void setProfilePath(String profilePath) {
         mProfilePath = profilePath;
     }
+
+    @Override
+    public String toString() {
+        return "Cast{" +
+                "mId='" + mId + '\'' +
+                ", mCastId='" + mCastId + '\'' +
+                ", mCharacter='" + mCharacter + '\'' +
+                ", mName='" + mName + '\'' +
+                ", mProfilePath='" + mProfilePath + '\'' +
+                '}';
+    }
 }

@@ -19,6 +19,8 @@ import static com.ptit.btl.moviedb.util.Constant.ApiUrlDef.API_URL_MOVIE_NOW_PLA
 import static com.ptit.btl.moviedb.util.Constant.ApiUrlDef.API_URL_MOVIE_POPULAR;
 import static com.ptit.btl.moviedb.util.Constant.ApiUrlDef.API_URL_MOVIE_TOP_RATED;
 import static com.ptit.btl.moviedb.util.Constant.ApiUrlDef.API_URL_MOVIE_UPCOMING;
+import static com.ptit.btl.moviedb.util.Constant.ApiUrlDef.API_URL_PERSON_IMAGES;
+import static com.ptit.btl.moviedb.util.Constant.ApiUrlDef.API_URL_PERSON_INFORMATION;
 import static com.ptit.btl.moviedb.util.Constant.ApiUrlDef.API_URL_SEARCH_MOVIES;
 import static com.ptit.btl.moviedb.util.Constant.ApiUrlDef.API_URL_SEARCH_QUERY;
 import static com.ptit.btl.moviedb.util.Constant.ApiUrlDef.API_URL_TRAILER_MOVIE;
@@ -62,6 +64,8 @@ public class Constant {
         String API_URL_TRAILER_MOVIE = "movie/%s/videos?";
         String API_URL_GENRES = "genre/movie/list?";
         String API_URL_MOVIES_BY_GENRE = "genre/%s/movies?";
+        String API_URL_PERSON_INFORMATION = "person/%s?";
+        String API_URL_PERSON_IMAGES = "person/%s/images?";
     }
 
     public static class ApiRequestUrl {
@@ -86,6 +90,11 @@ public class Constant {
             + API_URL_GENRES + API_KEY;
         public static final String API_MOVIES_BY_GENRE_REQUEST = API_URL
             + API_URL_MOVIES_BY_GENRE + API_KEY;
+        public static final String API_PERSON_INFO_REQUEST = API_URL
+            + API_URL_PERSON_INFORMATION + API_KEY;
+        public static final String API_PERSON_IMAGES_REQUEST = API_URL
+                + API_URL_PERSON_IMAGES + API_KEY;
+
     }
 
     public static class ApiParameter {
@@ -122,6 +131,15 @@ public class Constant {
         static final String API_KEY_GENRES = "genres";
         static final String API_KEY_GENRES_ID = "id";
         static final String API_KEY_GENRES_NAME = "name";
+        static final String API_PERSON_KEY_ID = "id";
+        static final String API_PERSON_KEY_NAME = "name";
+        static final String API_PERSON_KEY_AKA = "also_known_as";
+        static final String API_PERSON_KEY_BIOGRAPHY = "biography";
+        static final String API_PERSON_KEY_DATE_OF_BIRTH = "birthday";
+        static final String API_PERSON_KEY_PLACE_OF_BIRTH = "place_of_birth";
+        static final String API_PERSON_KEY_PROFILE_PICTURE = "profile_path";
+        static final String API_PERSON_KEY_IMAGES = "file_path";
+        static final String API_PERSON_KEY_IMAGES_CONTAINER = "profiles";
     }
 
     public static class MoviesDataBase {

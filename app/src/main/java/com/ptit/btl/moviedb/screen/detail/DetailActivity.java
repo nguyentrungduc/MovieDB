@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ import com.ptit.btl.moviedb.data.model.credit.Cast;
 import com.ptit.btl.moviedb.data.model.credit.Credit;
 import com.ptit.btl.moviedb.data.model.credit.Crew;
 import com.ptit.btl.moviedb.screen.BaseActivity;
+import com.ptit.btl.moviedb.screen.cast.CastInformationActivity;
 import com.ptit.btl.moviedb.screen.movies.MoviesByCastActivity;
 import com.ptit.btl.moviedb.screen.movies.MoviesByCrewActivity;
 import com.ptit.btl.moviedb.screen.movies.MoviesByProductionActivity;
@@ -116,7 +118,8 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
             new CastAdapter.LoadCastDataCallback() {
                 @Override
                 public void onItemCastClicked(Cast cast) {
-                    startActivity(MoviesByCastActivity.getInstance(
+                    Log.d("onItemCastClicked", cast.toString());
+                    startActivity(CastInformationActivity.getInstance(
                         getApplicationContext(),
                         cast));
                 }
