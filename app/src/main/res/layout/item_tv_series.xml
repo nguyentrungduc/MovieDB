@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_primary_dark">
+
+        <ImageView
+            android:id="@+id/image_card_movie"
+            android:scaleType="centerCrop"
+            android:src="@drawable/poster_3"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_primary_dark"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:text="Movie name"
+                android:textStyle="bold"
+                android:textColor="@color/color_grey_chateau"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="end">
+
+                <ImageView
+                    android:id="@+id/image_detail_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/card_padding"
+                    android:src="@drawable/ic_star_yellow_24dp"/>
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:id="@+id/tv_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:textColor="@color/color_grey_chateau"/>
+            </LinearLayout>
+        </LinearLayout>
+        <!--<ImageView-->
+            <!--android:id="@+id/image_card_movie"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:scaleType="centerInside"-->
+            <!--android:src="@drawable/poster_3"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/text_card_name"-->
+            <!--android:layout_width="@dimen/card_width"-->
+            <!--android:layout_height="@dimen/card_name_height"-->
+            <!--android:padding="@dimen/card_padding"-->
+            <!--android:text="@string/app_name"-->
+            <!--android:textColor="@color/color_white"/>-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/image_detail_star"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="@dimen/card_padding"-->
+            <!--android:src="@drawable/ic_star_yellow_24dp"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/text_card_rate"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/app_name"-->
+            <!--android:textColor="@color/color_grey_chateau"-->
+            <!--app:layout_constraintBottom_toBottomOf="@id/image_detail_star"-->
+            <!--app:layout_constraintHorizontal_bias="0.05"-->
+            <!--app:layout_constraintLeft_toRightOf="@+id/image_detail_star"-->
+            <!--app:layout_constraintRight_toRightOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="@+id/image_detail_star"/>-->
+    </LinearLayout>
+</android.support.v7.widget.CardView>

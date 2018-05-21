@@ -10,6 +10,9 @@ import com.ptit.btl.moviedb.data.model.credit.Cast;
 import com.ptit.btl.moviedb.data.model.credit.Credit;
 import com.ptit.btl.moviedb.data.model.credit.Crew;
 import com.ptit.btl.moviedb.data.model.person.Person;
+import com.ptit.btl.moviedb.data.model.tv.Review;
+import com.ptit.btl.moviedb.data.model.tv.Season;
+import com.ptit.btl.moviedb.data.model.tv.TvSeries;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -210,5 +213,126 @@ class RequestAPIUtils {
             images.add(object.getString(Constant.ApiResultKey.API_PERSON_KEY_IMAGES));
         }
         return images;
+    }
+
+    static List<TvSeries> parseJsonToTv(String json) throws JSONException {
+        JSONObject container = new JSONObject(json);
+        JSONArray results = container.getJSONArray("results");
+        List<TvSeries> tvSeries = new ArrayList<>();
+        for (int i = 0; i < results.length(); i++) {
+            TvSeries tv = new TvSeries();
+            tv.setName(results.getJSONObject(i).getString("original_name"));
+            tv.setPosterPath(results.getJSONObject(i).getString("poster_path"));
+            tv.setVoteAverage(results.getJSONObject(i).getDouble("vote_average"));
+            tv.setId(results.getJSONObject(i).getInt("id"));
+
+            tvSeries.add(tv);
+        }
+        return tvSeries;
+    }
+
+    static TvSeries parseJsonToTvDetail(String json) throws JSONException {
+        JSONObject container = new JSONObject(json);
+        TvSeries tvSeries = new TvSeries();
+        String backdropPath = container.getString("backdrop_path");
+        tvSeries.setBackDropPath(backdropPath);
+
+        JSONArray createdByJSON = container.getJSONArray("created_by");
+        List<Person> people = new ArrayList<>();
+        for (int i = 0; i < createdByJSON.length(); i++) {
+            JSONObject jsonObject = createdByJSON.getJSONObject(i);
+            int id = jsonObject.getInt("id");
+            String name = jsonObject.getString("name");
+            String profilePath = jsonObject.getString("profile_path");
+
+            Person person = new Person();
+            person.setId(id);
+            person.setName(name);
+            person.setProfilePicturePath(profilePath);
+
+            people.add(person);
+        }
+        tvSeries.setCreateBy(people);
+
+        String firstAirDate = container.getString("first_air_date");
+        tvSeries.setFirstAirDate(firstAirDate);
+
+        JSONArray genreJSON = container.getJSONArray("genres");
+        List<Genre> genres = new ArrayList<>();
+        for (int i = 0; i < genreJSON.length(); i++) {
+            JSONObject object = genreJSON.getJSONObject(i);
+            String name = object.getString("name");
+            int id = object.getInt("id");
+
+            Genre genre = new Genre();
+            genre.setName(name);
+
+            genres.add(genre);
+        }
+        tvSeries.setGenre(genres);
+
+        int id = container.getInt("id");
+        tvSeries.setId(id);
+
+        String name = container.getString("name");
+        tvSeries.setName(name);
+
+        String type = container.getString("type");
+        tvSeries.setType(type);
+
+        String overview = container.getString("overview");
+        tvSeries.setOverview(overview);
+
+        JSONArray productionJson = container.getJSONArray("production_companies");
+        List<Production> productions = new ArrayList<>();
+        for (int i = 0; i < genreJSON.length(); i++) {
+            JSONObject object = productionJson.getJSONObject(i);
+            String mName = object.getString("name");
+
+            Production production = new Production();
+            production.setName(mName);
+
+            productions.add(production);
+        }
+        tvSeries.setProductions(productions);
+
+        return tvSeries;
+    }
+
+    static List<Review> parseJsonToReviewList(String json) throws JSONException {
+        JSONObject container = new JSONObject(json);
+        JSONArray results = container.getJSONArray("results");
+
+        List<Review> reviews = new ArrayList<>();
+
+        for (int i = 0; i < results.length(); i++) {
+            Review review = new Review();
+            String author = results.getJSONObject(i).getString("author");
+            String content = results.getJSONObject(i).getString("content");
+            review.setAuthor(author);
+            review.setContent(content);
+
+            reviews.add(review);
+        }
+
+        return reviews;
+    }
+
+    static List<Season> parseJsonToSeason(String json) throws JSONException {
+        JSONObject container = new JSONObject(json);
+        JSONArray seasonJSON = container.getJSONArray("seasons");
+        List<Season> seasons = new ArrayList<>();
+        for (int i = 0; i < seasonJSON.length(); i++) {
+            Season season = new Season();
+            season.setAirDate(seasonJSON.getJSONObject(i).getString("air_date"));
+            season.setEpisodeCount(seasonJSON.getJSONObject(i).getInt("episode_count"));
+            season.setName(seasonJSON.getJSONObject(i).getString("name"));
+            season.setPosterPath(seasonJSON.getJSONObject(i).getString("poster_path"));
+            season.setOverview(seasonJSON.getJSONObject(i).getString("overview"));
+
+            seasons.add(season);
+        }
+
+        return seasons;
     }
 }

@@ -46,5 +46,11 @@
     <string name="fields_name">id,name,link,email,gender</string>
     <string name="fields">fields</string>
     <string name="data">data</string>
+    <string name="title_cast_crew"><![CDATA[Cast & Crew]]></string>
+    <string name="title_infomation">Information</string>
+    <string name="title_related_movie">Related movie</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

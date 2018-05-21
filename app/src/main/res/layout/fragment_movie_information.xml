@@ -1,0 +1,191 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.ptit.btl.moviedb.screen.tvdetail.tvinfo.MovieInformationFragment"
+    android:background="@color/color_primary_dark">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/app_padding">
+
+            <ImageView
+                android:id="@+id/iv_backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_trailer" />
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/content_margin_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Information"
+                            android:textColor="@color/color_accent"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ProgressBar
+                            android:id="@+id/pb_information"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/tv_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/content_margin_top"
+                        android:text="Type: "
+                        android:textColor="@color/color_grey_chateau"
+                        android:textSize="@dimen/text_size_content" />
+
+                    <TextView
+                        android:id="@+id/tv_language"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/content_margin_top"
+                        android:text="Released date: "
+                        android:textColor="@color/color_grey_chateau"
+                        android:textSize="@dimen/text_size_content" />
+
+                    <TextView
+                        android:id="@+id/tv_genres"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/content_margin_top"
+                        android:text="Genres: "
+                        android:textColor="@color/color_grey_chateau"
+                        android:textSize="@dimen/text_size_content" />
+
+                    <TextView
+                        android:id="@+id/tv_production_companies"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/content_margin_top"
+                        android:text="Production companies: "
+                        android:textColor="@color/color_grey_chateau"
+                        android:textSize="@dimen/text_size_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/title_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/content_margin_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="@color/color_accent"
+                        android:textSize="16sp"
+                        android:text="Overview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_overview"
+                    android:textColor="@color/color_grey_chateau"
+                    android:textSize="12sp"
+                    android:text="Extreme long description"
+                    android:layout_marginTop="@dimen/content_margin_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/content_margin_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/color_accent"
+                    android:textSize="16sp"
+                    android:text="Created by"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_created_by"
+                layoutManager="LinearLayoutManager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_home_margin_left"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                app:layoutManager="LinearLayoutManager"/>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/content_margin_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/color_accent"
+                    android:textSize="16sp"
+                    android:text="Reviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_reviews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_home_margin_left"/>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_no_result"
+                android:gravity="center_horizontal"
+                android:textColor="@color/color_white"
+                android:text="There are no reviews to showed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

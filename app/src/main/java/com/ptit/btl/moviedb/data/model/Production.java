@@ -22,4 +22,12 @@ public class Production {
     public void setName(String name) {
         this.mName = name;
     }
+
+    @Override
+    public String toString() {
+        return "Production{" +
+                "mId='" + mId + '\'' +
+                ", mName='" + mName + '\'' +
+                '}';
+    }
 }

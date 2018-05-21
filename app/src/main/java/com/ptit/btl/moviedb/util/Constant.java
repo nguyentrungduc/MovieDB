@@ -7,6 +7,7 @@ import com.ptit.btl.moviedb.BuildConfig;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import static com.ptit.btl.moviedb.util.Constant.ApiUrlDef.API_TV_CATEGORY;
 import static com.ptit.btl.moviedb.util.Constant.ApiUrlDef.API_URL_GENRES;
 import static com.ptit.btl.moviedb.util.Constant.ApiUrlDef.API_URL_MOVIES_BY_GENRE;
 import static com.ptit.btl.moviedb.util.Constant.ApiUrlDef.API_URL_MOVIES_BY_PEOPLE;
@@ -66,6 +67,7 @@ public class Constant {
         String API_URL_MOVIES_BY_GENRE = "genre/%s/movies?";
         String API_URL_PERSON_INFORMATION = "person/%s?";
         String API_URL_PERSON_IMAGES = "person/%s/images?";
+        String API_TV_CATEGORY = "tv/%s?";
     }
 
     public static class ApiRequestUrl {
@@ -94,6 +96,12 @@ public class Constant {
             + API_URL_PERSON_INFORMATION + API_KEY;
         public static final String API_PERSON_IMAGES_REQUEST = API_URL
                 + API_URL_PERSON_IMAGES + API_KEY;
+        public static final String API_TV_CATEGORY_REQUEST = API_URL + "%s?"
+                + API_KEY + "&language=%s&page=%s";
+        public static final String API_TV_DETAIL_REQUEST = API_URL + "tv/%s?"
+                + API_KEY + "&language=en-US";
+        public static final String API_TV_REVIEW_REQUEST = API_URL + "tv/%s/reviews?"
+                + API_KEY + "&language=en-US";
 
     }
 

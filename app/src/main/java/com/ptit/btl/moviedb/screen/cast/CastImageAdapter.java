@@ -20,6 +20,11 @@ import java.util.List;
 public class CastImageAdapter extends RecyclerView.Adapter<CastImageAdapter.CastImageViewHolder> {
 
     private List<String> images;
+    private ImageClick callback;
+
+    public CastImageAdapter(ImageClick callback) {
+        this.callback = callback;
+    }
 
     public void setImages(List<String> images) {
         this.images = images;
@@ -31,7 +36,7 @@ public class CastImageAdapter extends RecyclerView.Adapter<CastImageAdapter.Cast
     public CastImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.item_image, parent, false);
-        return new CastImageViewHolder(view);
+        return new CastImageViewHolder(view, callback);
     }
 
     @Override
@@ -49,9 +54,15 @@ public class CastImageAdapter extends RecyclerView.Adapter<CastImageAdapter.Cast
         ImageView ivProfile;
         String path;
 
-        CastImageViewHolder(View itemView) {
+        CastImageViewHolder(View itemView, final ImageClick callback) {
             super(itemView);
             initView();
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callback.onImageClick(images.indexOf(path), images);
+                }
+            });
         }
 
         private void initView() {
@@ -66,5 +77,9 @@ public class CastImageAdapter extends RecyclerView.Adapter<CastImageAdapter.Cast
         private void setupUI() {
             ImageUtils.loadImageFromUrlPicasso(ivProfile, path, R.drawable.image_trailer);
         }
+    }
+
+    interface ImageClick{
+        void onImageClick(int pos, List<String> images);
     }
 }

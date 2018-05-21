@@ -2,6 +2,7 @@ package com.ptit.btl.moviedb.screen.cast;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -21,19 +22,21 @@ import com.ptit.btl.moviedb.data.model.person.Person;
 import com.ptit.btl.moviedb.screen.BaseActivity;
 import com.ptit.btl.moviedb.screen.detail.DetailActivity;
 import com.ptit.btl.moviedb.screen.home.HomeActivity;
+import com.ptit.btl.moviedb.screen.movies.MovieContainerActivity;
 import com.ptit.btl.moviedb.screen.movies.MoviesActivity;
 import com.ptit.btl.moviedb.util.Constant;
 import com.ptit.btl.moviedb.util.ImageUtils;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by CuongHQ on 5/18/2018.
  */
 
-public class CastInformationActivity extends BaseActivity implements CastInformationContract.View{
+public class CastInformationActivity extends BaseActivity implements CastInformationContract.View, CastImageAdapter.ImageClick{
 
     private CastInformationPresenter presenter;
 
@@ -79,7 +82,7 @@ public class CastInformationActivity extends BaseActivity implements CastInforma
 
         rvImages = findViewById(R.id.rv_images);
         rvImages.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-        adapter = new CastImageAdapter();
+        adapter = new CastImageAdapter(CastInformationActivity.this);
         rvImages.setAdapter(adapter);
 
         rvRelatedMovies = findViewById(R.id.rv_related_movie);
@@ -161,4 +164,12 @@ public class CastInformationActivity extends BaseActivity implements CastInforma
 
     }
 
+    @Override
+    public void onImageClick(int pos, List<String> images) {
+        Intent t = new Intent(CastInformationActivity.this, MovieContainerActivity.class);
+        t.putExtra("pos",pos);
+        t.putStringArrayListExtra("image", (ArrayList<String>) images);
+        startActivity(t);
+
+    }
 }

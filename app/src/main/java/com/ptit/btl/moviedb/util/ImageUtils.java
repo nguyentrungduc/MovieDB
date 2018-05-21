@@ -1,5 +1,6 @@
 package com.ptit.btl.moviedb.util;
 
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +21,7 @@ public class ImageUtils {
     }
 
     public static void loadImageFromUrlPicasso(ImageView imageView, String url, int imagePlaceHolder) {
+        Log.d("abc", String.format(Constant.ApiRequestUrl.API_IMAGE_URL, url));
         Picasso.get()
                 .load(String.format(Constant.ApiRequestUrl.API_IMAGE_URL, url))
                 .placeholder(imagePlaceHolder)

@@ -3,6 +3,7 @@ package com.ptit.btl.moviedb.screen.detail;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,7 @@ public class ProductionAdapter extends BaseRecyclerViewAdapter<ProductionAdapter
 
         private void setData(Production production) {
             if (production == null) return;
+            Log.d("setData", production.toString());
             mProduction = production;
             mButtonItemProduction.setText(production.getName());
         }
