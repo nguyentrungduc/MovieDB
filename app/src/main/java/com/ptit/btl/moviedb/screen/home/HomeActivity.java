@@ -6,12 +6,17 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -57,7 +62,7 @@ import java.util.List;
  * Created by admin on 25/4/18.
  */
 
-public class HomeActivity extends BaseActivity implements HomeContract.View {
+public class HomeActivity extends BaseActivity implements HomeContract.View, NavigationView.OnNavigationItemSelectedListener {
     private HomeContract.Presenter mPresenter;
     private HomeAdapter mPopularMoviesAdapter, mNowPlayingMoviesAdapter,
         mUpcomingMoviesAdapter, mTopRateMoviesAdapter;
@@ -69,6 +74,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     CallbackManager mCallbackManager;
     LoginButton mLoginButton;
     private ImageView imv;
+    private DrawerLayout mDrawerLayout;
+    private NavigationView mNavigationView;
     private static final String TAG = HomeActivity.class.toString();
 
     public static Intent getInstance(Context context) {
@@ -121,6 +128,9 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     }
 
     private void initLayoutPopular() {
+        mNavigationView = findViewById(R.id.navigation_view);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mNavigationView.setNavigationItemSelectedListener(this);
         View include = findViewById(R.id.include_popular);
         TextView textView = include.findViewById(R.id.text_recycler_title);
         textView.setText(R.string.title_popular);
@@ -418,5 +428,28 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_home:
+                Log.d(TAG, "homeclick");
+                break;
+            case R.id.item_television:
+                Log.d(TAG, "televisionclick");
+                break;
+
+        }
+        return true;
     }
 }
