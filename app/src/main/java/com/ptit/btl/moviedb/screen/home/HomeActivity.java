@@ -49,6 +49,7 @@ import com.ptit.btl.moviedb.screen.movies.MoviesByFavourite;
 import com.ptit.btl.moviedb.screen.movies.MoviesByGenreActivity;
 import com.ptit.btl.moviedb.screen.movies.MoviesBySearchActivity;
 import com.ptit.btl.moviedb.screen.timeline.TimelineActivity;
+import com.ptit.btl.moviedb.screen.tv.TvHomeActivity;
 import com.ptit.btl.moviedb.util.EndlessRecyclerOnScrollListener;
 import com.ptit.btl.moviedb.util.NetworkReceiver;
 import com.ptit.btl.moviedb.util.StringUtils;
@@ -447,6 +448,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
                 break;
             case R.id.item_television:
                 Log.d(TAG, "televisionclick");
+                Intent intent = new Intent(getApplicationContext(), TvHomeActivity.class);
+                startActivity(intent);
                 break;
 
         }
