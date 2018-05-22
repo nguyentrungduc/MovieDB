@@ -45,6 +45,7 @@ import com.ptit.btl.moviedb.data.source.local.MoviesDatabaseHelper;
 import com.ptit.btl.moviedb.data.source.local.UserLocalDataSource;
 import com.ptit.btl.moviedb.screen.BaseActivity;
 import com.ptit.btl.moviedb.screen.detail.DetailActivity;
+import com.ptit.btl.moviedb.screen.login.LoginActivity;
 import com.ptit.btl.moviedb.screen.movies.MoviesByFavourite;
 import com.ptit.btl.moviedb.screen.movies.MoviesByGenreActivity;
 import com.ptit.btl.moviedb.screen.movies.MoviesBySearchActivity;
@@ -59,6 +60,8 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by admin on 25/4/18.
  */
@@ -72,11 +75,11 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
         mProgressBarUpcoming, mProgressBarTopRate, mProgressBarGenres;
     private EndlessRecyclerOnScrollListener mPopularOnScrollListener,
         mNowPlayingOnScrollListener, mUpcomingOnScrollListener, mTopRateOnScrollListener;
-    CallbackManager mCallbackManager;
-    LoginButton mLoginButton;
     private ImageView imv;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
+    private TextView mTextView;
+    private CircleImageView mCircleImageView;
     private static final String TAG = HomeActivity.class.toString();
 
     public static Intent getInstance(Context context) {
@@ -100,8 +103,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
         initToolbar();
         loadMovies();
         initNetworkBroadcast();
-        mLoginButton = findViewById(R.id.loginButton);
         mPresenter.loadUser();
+
     }
 
     private void initMoviesAdapters() {
@@ -135,6 +138,9 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
         TextView textView = include.findViewById(R.id.text_recycler_title);
         textView.setText(R.string.title_popular);
         mProgressBarPopular = include.findViewById(R.id.progressbar_recycler);
+        View mHeader = mNavigationView.getHeaderView(0);
+        mTextView = mHeader.findViewById(R.id.text_view_username);
+        mCircleImageView = mHeader.findViewById(R.id.img_avatar);
         RecyclerView recyclerView = include.findViewById(R.id.recycler_movies);
         recyclerView.setAdapter(mPopularMoviesAdapter);
         mPopularOnScrollListener = new EndlessRecyclerOnScrollListener(
@@ -236,13 +242,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
                 startActivity(MoviesByFavourite.getInstance(getApplicationContext()));
             }
         });
-        findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onLogin");
-                onLoginFacebook();
-            }
-        });
     }
 
     private void loadMovies() {
@@ -335,50 +334,13 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
     @Override
     public void onLoadUserSucess(User user) {
         Glide.with(this).load(user.getImageLink())
-                .into(imv);
+                .into(mCircleImageView);
+        mTextView.setText(user.getUserName());
     }
 
     @Override
-    public void onLoadUserFailed() {
-
-    }
-
-    @Override
-    public void onLoginFacebook() {
-
-
-
-    }
-
-    @Override
-    public void onLoginFacebookFailed() {
-        Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
-
-    }
-
-    @Override
-    public void onLoginFacebookCanceled() {
-        Toast.makeText(this, "Canceled Login", Toast.LENGTH_SHORT).show();
-
-    }
-
-    @Override
-    public void openUserScreen() {
-        startActivity(TimelineActivity.getInstance(this));
-
-    }
-
-    @Override
-    public void onSaveUserSucess(User user) {
-        Glide.with(this).load(user.getImageLink())
-                .into(imv);
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    public void showLoginScreen() {
+        startActivity(LoginActivity.getInstance(this));
     }
 
     @Override
@@ -395,6 +357,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
         switch (item.getItemId()) {
             case R.id.item_home:
                 Log.d(TAG, "homeclick");
+                mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.item_television:
                 Log.d(TAG, "televisionclick");
@@ -402,6 +365,11 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
                 startActivity(intent);
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
+            case R.id.item_logout:
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                mPresenter.logOut();
+                break;
+
 
         }
         return true;

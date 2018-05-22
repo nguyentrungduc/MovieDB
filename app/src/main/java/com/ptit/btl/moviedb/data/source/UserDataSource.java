@@ -9,6 +9,12 @@ import java.util.List;
  */
 
 public interface UserDataSource {
+
+    interface GetUserCallback {
+        void onSucess(User user);
+
+        void onFailed();
+    }
     interface  LocalDataSource {
         void saveUser(User user);
 
@@ -20,5 +26,6 @@ public interface UserDataSource {
     }
 
     interface RemoteDataSource {
+        void login(String username, String password, GetUserCallback callback);
     }
 }

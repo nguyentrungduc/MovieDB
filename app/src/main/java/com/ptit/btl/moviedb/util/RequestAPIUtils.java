@@ -6,6 +6,7 @@ import com.ptit.btl.moviedb.data.model.Genre;
 import com.ptit.btl.moviedb.data.model.Movie;
 import com.ptit.btl.moviedb.data.model.Production;
 import com.ptit.btl.moviedb.data.model.Trailer;
+import com.ptit.btl.moviedb.data.model.User;
 import com.ptit.btl.moviedb.data.model.credit.Cast;
 import com.ptit.btl.moviedb.data.model.credit.Credit;
 import com.ptit.btl.moviedb.data.model.credit.Crew;
@@ -93,6 +94,16 @@ class RequestAPIUtils {
             productions.add(production);
         }
         return productions;
+    }
+
+    static User parseJsonToUser(String json)
+            throws JSONException {
+        User user = new User();
+        JSONObject jsonObject = new JSONArray(json).getJSONObject(0);
+
+        user.setUserName(jsonObject.getString("username"));
+        user.setImageLink(jsonObject.getString("image_url"));
+        return user;
     }
 
     static Credit parseJsonToCredit(String json) throws JSONException {

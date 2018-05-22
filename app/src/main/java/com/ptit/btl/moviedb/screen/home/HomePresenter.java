@@ -194,31 +194,14 @@ public class HomePresenter implements HomeContract.Presenter {
         if (mUser != null) {
             mView.onLoadUserSucess(mUser);
         }
-        else {
-            mView.onLoadUserFailed();
-        }
 
-    }
-
-    @Override
-    public void onClickUser() {
-
-    }
-
-    @Override
-    public void checkLogin() {
     }
 
     @Override
     public void logOut() {
-       // LoginManager.getInstance().logOut();
-    }
-
-    @Override
-    public void saveUser(User user) {
-        Log.d(TAG, "save"+user.toString());
-        mUserRepository.saveUser(user);
-        mView.onSaveUserSucess(user);
+        mUserRepository.clearCache();
+        LoginManager.getInstance().logOut();
+        mView.showLoginScreen();
     }
 
 }

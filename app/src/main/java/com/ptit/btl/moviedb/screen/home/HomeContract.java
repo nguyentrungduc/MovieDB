@@ -34,17 +34,7 @@ public class HomeContract {
 
         void onLoadUserSucess(User user);
 
-        void onLoadUserFailed();
-
-        void onLoginFacebook();
-
-        void onLoginFacebookFailed();
-
-        void onLoginFacebookCanceled();
-
-        void openUserScreen();
-
-        void onSaveUserSucess(User user);
+        void showLoginScreen();
     }
 
     public interface Presenter extends BasePresenter<View> {
@@ -62,12 +52,7 @@ public class HomeContract {
 
         void loadUser();
 
-        void onClickUser();
-
-        void checkLogin();
-
         void logOut();
-        
-        void saveUser(User user);
+
     }
 }

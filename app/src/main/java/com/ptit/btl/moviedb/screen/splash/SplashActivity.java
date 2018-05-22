@@ -33,7 +33,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                startActivity(HomeActivity.getInstance(
+                startActivity(LoginActivity.getInstance(
                     getApplicationContext()));
                 finish();
             }

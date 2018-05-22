@@ -58,7 +58,6 @@ public class TvHomeActivity extends BaseActivity implements TvHomeContract.View,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tv);
         presenter = new TvHomePresenter(TvHomeActivity.this);
-        initView();
         initToolbar();
         initPopularTvSeries();
         initTopRateTvSeries();
@@ -99,9 +98,6 @@ public class TvHomeActivity extends BaseActivity implements TvHomeContract.View,
         recyclerView.setLayoutManager(new GridLayoutManager(TvHomeActivity.this.getApplicationContext(), 2));
     }
 
-    private void initView() {
-        loginButton = findViewById(R.id.loginButton);
-    }
 
     private void initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar_detail);
