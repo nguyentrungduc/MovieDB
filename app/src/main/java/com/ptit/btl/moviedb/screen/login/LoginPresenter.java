@@ -40,10 +40,10 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void checkUser() {
-//        if (mUserRepository.getUser() != null) {
-//            mView.goTo();
-//            return;
-//        }
+        if (mUserRepository.getUser() != null) {
+            mView.goTo();
+            return;
+        }
 
     }
 
