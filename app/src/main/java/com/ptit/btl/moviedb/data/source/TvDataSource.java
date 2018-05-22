@@ -12,6 +12,12 @@ import java.util.List;
 
 public interface TvDataSource {
 
+    interface LoadTvSeriesCallback {
+        void onTvSeriesLoaded(List<TvSeries> tvSeries);
+
+        void dataNotAvailable();
+    }
+
     interface LoadSeasonCallback {
         void onSeasonLoaded(List<Season> seasons);
 
@@ -44,6 +50,10 @@ public interface TvDataSource {
         void getReview(int id, LoadReviewCallback callback);
 
         void getSeason(int id, LoadSeasonCallback callback);
+
+        void getSimilarTvShows(int tvId, LoadTvCallback callback);
+
+        void getCredits(int tvId, CreditDataSource.LoadProductionsCallback callback);
     }
 
 

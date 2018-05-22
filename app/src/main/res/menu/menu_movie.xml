@@ -14,12 +14,6 @@
         android:title="Seasons"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_cast_crew"
-        android:enabled="true"
-        android:icon="@drawable/ic_camera_black_24dp"
-        android:title="@string/title_cast_crew"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/action_related_movie"
         android:enabled="true"
         android:icon="@drawable/ic_perm_media_black_24dp"

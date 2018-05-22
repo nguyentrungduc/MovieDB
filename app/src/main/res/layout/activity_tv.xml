@@ -40,5 +40,6 @@
             android:layout_marginTop="@dimen/include_margin_top"
             app:layout_constraintLeft_toLeftOf="@id/include_popular"
             app:layout_constraintTop_toBottomOf="@+id/include_popular"/>
+
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>

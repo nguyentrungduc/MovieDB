@@ -3,12 +3,16 @@ package com.ptit.btl.moviedb.data.source.remote;
 import android.util.Log;
 
 import com.ptit.btl.moviedb.data.model.tv.TvSeries;
+import com.ptit.btl.moviedb.data.source.CreditDataSource;
 import com.ptit.btl.moviedb.data.source.TvDataSource;
+import com.ptit.btl.moviedb.util.FetchCreditFromUrl;
 import com.ptit.btl.moviedb.util.FetchReviewFromUrl;
 import com.ptit.btl.moviedb.util.FetchSeasonFromUrl;
 import com.ptit.btl.moviedb.util.FetchTvSeriesDetailFromUrl;
 import com.ptit.btl.moviedb.util.FetchTvSeriesFromUrl;
 
+import static com.ptit.btl.moviedb.util.Constant.ApiRequestUrl.API_CREDITS_REQUEST;
+import static com.ptit.btl.moviedb.util.Constant.ApiRequestUrl.API_SIMILAR_TV_SERIES;
 import static com.ptit.btl.moviedb.util.Constant.ApiRequestUrl.API_TV_CATEGORY_REQUEST;
 import static com.ptit.btl.moviedb.util.Constant.ApiRequestUrl.API_TV_DETAIL_REQUEST;
 import static com.ptit.btl.moviedb.util.Constant.ApiRequestUrl.API_TV_REVIEW_REQUEST;
@@ -55,4 +59,17 @@ public class TvSeriesRemoteDataSource implements TvDataSource.RemoteDataSource {
                 String.format(API_TV_DETAIL_REQUEST, id+"")
         );
     }
+
+    @Override
+    public void getSimilarTvShows(int tvId, TvDataSource.LoadTvCallback callback) {
+        new FetchTvSeriesFromUrl(callback).execute(
+                String.format(API_SIMILAR_TV_SERIES, tvId+"")
+        );
+    }
+
+    @Override
+    public void getCredits(int tvId, CreditDataSource.LoadProductionsCallback callback) {
+        new FetchCreditFromUrl(callback).execute(String.format(API_CREDITS_REQUEST, tvId+""));
+    }
+
 }

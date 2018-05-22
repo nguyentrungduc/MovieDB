@@ -9,14 +9,11 @@
         android:id="@+id/text_recycler_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
         android:text="@string/title_now_playing"
         android:textColor="@color/color_white"
         android:textSize="@dimen/text_home_size"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"/>
+        android:textStyle="bold"/>
 
     <ProgressBar
         android:id="@+id/progressbar_recycler"

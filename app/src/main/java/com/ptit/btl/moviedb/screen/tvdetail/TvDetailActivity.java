@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import com.ptit.btl.moviedb.R;
 import com.ptit.btl.moviedb.data.model.tv.TvSeries;
 import com.ptit.btl.moviedb.screen.BaseActivity;
+import com.ptit.btl.moviedb.screen.tvdetail.similar.TvSimilarFragment;
 import com.ptit.btl.moviedb.screen.tvdetail.tvinfo.MovieInformationFragment;
 import com.ptit.btl.moviedb.screen.tvdetail.tvseason.TVSeasonFragment;
 
@@ -56,16 +57,12 @@ public class TvDetailActivity extends BaseActivity {
                         changeFragment(MovieInformationFragment.getInstance(tv));
                         break;
 
-                    case R.id.action_cast_crew:
+                    case R.id.action_season:
                         changeFragment(TVSeasonFragment.getInstance(tv));
                         break;
 
-                    case R.id.action_season:
-
-                        break;
-
                     case R.id.action_related_movie:
-
+                        changeFragment(TvSimilarFragment.newInstance(tv));
                         break;
                 }
                 return true;

@@ -1,5 +1,6 @@
 package com.ptit.btl.moviedb.screen.tvdetail.tvinfo;
 
+import com.ptit.btl.moviedb.data.model.credit.Credit;
 import com.ptit.btl.moviedb.data.model.tv.Review;
 import com.ptit.btl.moviedb.data.model.tv.TvSeries;
 
@@ -19,11 +20,17 @@ public interface TvInfoContract {
         void onLoadedReviews(List<Review> reviews);
 
         void onLoadReviewsFailed();
+
+        void onLoadedCredit(Credit credit);
+
+        void onLoadedCreditFailed();
     }
 
     interface Presenter {
         void loadTvSeries(int id);
 
         void loadReview(int id);
+
+        void loadCredit(int id);
     }
 }

@@ -102,6 +102,10 @@ public class Constant {
                 + API_KEY + "&language=en-US";
         public static final String API_TV_REVIEW_REQUEST = API_URL + "tv/%s/reviews?"
                 + API_KEY + "&language=en-US";
+        public static final String API_SIMILAR_TV_SERIES = API_URL + "tv/%s/similar?"
+                + API_KEY + "&language=en-US";
+        public static final String API_CREDITS_REQUEST = API_URL + "tv/%s/credits?"
+                + API_KEY + "&language=en-US";
 
     }
 

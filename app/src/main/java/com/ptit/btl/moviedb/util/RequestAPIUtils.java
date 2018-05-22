@@ -102,8 +102,8 @@ class RequestAPIUtils {
         JSONObject jsonObject = new JSONObject(json);
         credit.setId(jsonObject.getString(
             Constant.ApiResultKey.API_CREDIT_KEY_ID));
-        getCastFromCredit(casts, jsonObject);
-        getCrewFromCredit(crews, jsonObject);
+        getTvCast(casts, jsonObject);
+        getTvCrew(crews, jsonObject);
         credit.setCasts(casts);
         credit.setCrews(crews);
         return credit;
@@ -151,6 +151,45 @@ class RequestAPIUtils {
         }
     }
 
+    private static void getTvCast(List<Cast> casts, JSONObject jsonObject)
+            throws JSONException {
+        JSONArray castJsonArray = jsonObject.getJSONArray(
+                Constant.ApiResultKey.API_KEY_CREDIT_CAST);
+        for (int i = 0; i < castJsonArray.length(); i++) {
+            Cast cast = new Cast();
+            cast.setId(castJsonArray.getJSONObject(i)
+                    .getString(Constant.ApiResultKey.API_CREDIT_KEY_ID));
+            cast.setCastId(castJsonArray.getJSONObject(i)
+                    .getString("credit_id"));
+            cast.setCharacter(castJsonArray.getJSONObject(i)
+                    .getString(Constant.ApiResultKey.API_CAST_KEY_CHARACTER));
+            cast.setProfilePath(castJsonArray.getJSONObject(i)
+                    .getString(Constant.ApiResultKey.API_CAST_KEY_PROFILE_PATH));
+            cast.setName(castJsonArray.getJSONObject(i)
+                    .getString(Constant.ApiResultKey.API_CAST_KEY_NAME));
+            casts.add(cast);
+        }
+    }
+
+    private static void getTvCrew(List<Crew> crews, JSONObject jsonObject)
+            throws JSONException {
+        JSONArray castJsonArray = jsonObject.getJSONArray(
+                Constant.ApiResultKey.API_KEY_CREDIT_CREW);
+        for (int i = 0; i < castJsonArray.length(); i++) {
+            Crew crew = new Crew();
+            crew.setId(castJsonArray.getJSONObject(i)
+                    .getString(Constant.ApiResultKey.API_CREDIT_KEY_ID));
+            crew.setCreditId(castJsonArray.getJSONObject(i)
+                    .getString("credit_id"));
+            crew.setDepartment(castJsonArray.getJSONObject(i)
+                    .getString("job"));
+            crew.setProfilePath(castJsonArray.getJSONObject(i)
+                    .getString(Constant.ApiResultKey.API_CAST_KEY_PROFILE_PATH));
+            crew.setName(castJsonArray.getJSONObject(i)
+                    .getString(Constant.ApiResultKey.API_CAST_KEY_NAME));
+            crews.add(crew);
+        }
+    }
     static List<Trailer> parseJsonToTrailer(String json) throws JSONException {
         List<Trailer> trailers = new ArrayList<>();
         JSONObject jsonObject = new JSONObject(json);
