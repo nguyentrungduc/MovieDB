@@ -86,7 +86,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_home);
         MoviesDatabaseHelper.getInstance(this);
         mPresenter = new HomePresenter(getMovieRepository(),
@@ -347,56 +346,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
     @Override
     public void onLoginFacebook() {
 
-        mCallbackManager = CallbackManager.Factory.create();
 
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
-        mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-
-                    Log.d(TAG, "sc");
-                    Log.d(TAG, loginResult.getAccessToken().getToken() +" "+  loginResult.getAccessToken().getUserId());
-
-
-                    mLoginButton.setReadPermissions(Arrays.asList(
-                            "public_profile", "email", "user_birthday","user_about_me", "user_friends","user_photos","user_education_history","user_work_history",
-                            "user_posts","read_custom_friendlists","user_friends","user_likes"));
-
-                    AccessToken.getCurrentAccessToken().getPermissions();
-
-                final GraphRequest request = GraphRequest.newMeRequest(
-                        AccessToken.getCurrentAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object,
-                                                    GraphResponse response) {
-                                Log.d(TAG,"aaa"+ object.toString());
-                                String mName = object.optString(getString(R.string.title_name));
-                                String mId = object.optString(getString(R.string.title_id));
-                                String mGender = object.optString(getString(R.string.title_gender));
-                                String mEmail = object.optString(getString(R.string.title_email));
-                                String mLink = object.optString(getString(R.string.title_link));
-                                User user = new User(mId, mName, StringUtils.getURLAvatar(mId));
-                                mPresenter.saveUser(user);
-
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString(getString(R.string.fields), getString(R.string.fields_name));
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
-
-            @Override
-            public void onCancel() {
-                onLoginFacebookCanceled();
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                onLoadUserFailed();
-            }
-        });
 
     }
 
@@ -450,6 +400,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
                 Log.d(TAG, "televisionclick");
                 Intent intent = new Intent(getApplicationContext(), TvHomeActivity.class);
                 startActivity(intent);
+                mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
 
         }
