@@ -3,7 +3,7 @@ package com.ptit.btl.moviedb.screen.login;
 import com.ptit.btl.moviedb.data.model.User;
 import com.ptit.btl.moviedb.data.repository.UserRepository;
 import com.ptit.btl.moviedb.data.source.UserDataSource;
-import com.ptit.btl.moviedb.screen.BasePresenter;
+
 
 public class LoginPresenter implements LoginContract.Presenter {
     private UserRepository mUserRepository;
