@@ -14,6 +14,8 @@ import com.ptit.btl.moviedb.R;
 import com.ptit.btl.moviedb.data.model.tv.TvSeries;
 import com.ptit.btl.moviedb.screen.tv.TvHomeActivity;
 import com.ptit.btl.moviedb.screen.tv.TvSeriesAdapter;
+import com.ptit.btl.moviedb.screen.tvdetail.TvDetailActivity;
+import com.ptit.btl.moviedb.screen.tvlist.TvListAdapter;
 
 import java.util.List;
 
@@ -21,13 +23,17 @@ import java.util.List;
  * Created by CuongHQ on 5/22/2018.
  */
 
-public class TvSimilarFragment extends Fragment implements TvSimilarContract.View{
+public class TvSimilarFragment extends Fragment implements TvSimilarContract.View, TvSeriesAdapter.TvSeriesClick {
 
-    public static TvSimilarFragment newInstance(TvSeries tvSeries) {
+    private TvDetailActivity activity;
+
+
+    public static TvSimilarFragment newInstance(TvSeries tvSeries, TvDetailActivity activity) {
         TvSimilarFragment fragment = new TvSimilarFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("TV_SERIES", tvSeries);
         fragment.setArguments(bundle);
+        fragment.activity = activity;
         return fragment;
     }
 
@@ -66,6 +72,7 @@ public class TvSimilarFragment extends Fragment implements TvSimilarContract.Vie
         }
 
         adapter = new TvSeriesAdapter();
+        adapter.setCallback(TvSimilarFragment.this);
         rvsimilar.setLayoutManager(new GridLayoutManager(TvSimilarFragment.this.getContext(), 2));
         rvsimilar.setAdapter(adapter);
     }
@@ -81,5 +88,10 @@ public class TvSimilarFragment extends Fragment implements TvSimilarContract.Vie
     public void onLoadSimilarTvShowsFailed() {
         Log.d("onLoadSimFailed", "abc");
         pbSimilar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onTvSeriesClick(TvSeries tvSeries) {
+        activity.changeActivity(tvSeries);
     }
 }

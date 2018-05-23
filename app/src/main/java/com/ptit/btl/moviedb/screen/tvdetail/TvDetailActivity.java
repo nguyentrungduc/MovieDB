@@ -39,6 +39,7 @@ public class TvDetailActivity extends BaseActivity {
     public void changeFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, fragment).commit();
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +63,7 @@ public class TvDetailActivity extends BaseActivity {
                         break;
 
                     case R.id.action_related_movie:
-                        changeFragment(TvSimilarFragment.newInstance(tv));
+                        changeFragment(TvSimilarFragment.newInstance(tv, TvDetailActivity.this));
                         break;
                 }
                 return true;
@@ -92,6 +93,10 @@ public class TvDetailActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    public void changeActivity(TvSeries series) {
+        startActivity(getInstance(getApplicationContext(), series));
     }
 
 }

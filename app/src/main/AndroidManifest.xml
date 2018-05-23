@@ -78,6 +78,9 @@
         <activity android:name=".screen.tvdetail.TvDetailActivity"
             android:theme="@style/AppTheme">
         </activity>
+        <activity android:name=".screen.tvlist.TvListActivity"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>
