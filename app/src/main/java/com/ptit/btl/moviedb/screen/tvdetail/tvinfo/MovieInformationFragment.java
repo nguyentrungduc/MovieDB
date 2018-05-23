@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ptit.btl.moviedb.R;
+import com.ptit.btl.moviedb.data.model.credit.Cast;
+import com.ptit.btl.moviedb.data.model.credit.Credit;
+import com.ptit.btl.moviedb.data.model.credit.Crew;
 import com.ptit.btl.moviedb.data.model.tv.Review;
 import com.ptit.btl.moviedb.data.model.tv.TvSeries;
+import com.ptit.btl.moviedb.screen.cast.CastInformationActivity;
+import com.ptit.btl.moviedb.screen.detail.CastAdapter;
+import com.ptit.btl.moviedb.screen.detail.CrewAdapter;
+import com.ptit.btl.moviedb.screen.movies.MoviesByCrewActivity;
 import com.ptit.btl.moviedb.util.ImageUtils;
 
 import java.util.List;
@@ -35,12 +43,15 @@ public class MovieInformationFragment extends Fragment implements TvInfoContract
     private RecyclerView rvCreatedBy;
 
     private TvInfoPresenter presenter;
-    private ProgressBar pbInfo, pbReview;
+    private ProgressBar pbInfo, pbReview, pbCast, pbCrew;
     private CreatorAdapter adapter;
     private TvInfoReviewAdapter reviewAdapter;
 
     private RecyclerView rvReview;
     private TextView tvNoResult;
+
+    private CastAdapter castAdapter;
+    private CrewAdapter crewAdapter;
 
     public static MovieInformationFragment getInstance(TvSeries tvSeries) {
         MovieInformationFragment movieInformationFragment = new MovieInformationFragment();
@@ -62,6 +73,8 @@ public class MovieInformationFragment extends Fragment implements TvInfoContract
         View view =  inflater.inflate(R.layout.fragment_movie_information, container, false);
         initView(view);
         initTvSeries();
+        initLayoutCasts(view);
+        initLayoutCrews(view);
         return view;
     }
 
@@ -70,6 +83,8 @@ public class MovieInformationFragment extends Fragment implements TvInfoContract
         presenter.loadTvSeries(tvSeries.getId());
 
         presenter.loadReview(tvSeries.getId());
+
+        presenter.loadCredit(tvSeries.getId());
     }
 
     private void initView(View view) {
@@ -95,6 +110,27 @@ public class MovieInformationFragment extends Fragment implements TvInfoContract
         reviewAdapter = new TvInfoReviewAdapter();
         rvReview.setLayoutManager(new LinearLayoutManager(getContext()));
         rvReview.setAdapter(reviewAdapter);
+
+        castAdapter = new CastAdapter(MovieInformationFragment.this.getContext(),
+                new CastAdapter.LoadCastDataCallback() {
+                    @Override
+                    public void onItemCastClicked(Cast cast) {
+                        Log.d("onItemCastClicked", cast.toString());
+                        startActivity(CastInformationActivity.getInstance(
+                                getContext(),
+                                cast));
+                    }
+                });
+
+        crewAdapter = new CrewAdapter(MovieInformationFragment.this.getContext(),
+                new CrewAdapter.LoadCrewDataCallback() {
+                    @Override
+                    public void onItemCrewClicked(Crew crew) {
+                        startActivity(MoviesByCrewActivity.getInstance(
+                                getContext(),
+                                crew));
+                    }
+                });
 
         if (tvSeries != null) {
             updateUI();
@@ -130,7 +166,23 @@ public class MovieInformationFragment extends Fragment implements TvInfoContract
         }
     }
 
+    private void initLayoutCasts(View view) {
+        View include = view.findViewById(R.id.include_cast);
+        pbCast = include.findViewById(R.id.progressbar_recycler);
+        TextView tvCastTitle = include.findViewById(R.id.text_recycler_title);
+        tvCastTitle.setText(R.string.title_cast);
+        RecyclerView recyclerView = include.findViewById(R.id.recycler_movies);
+        recyclerView.setAdapter(castAdapter);
+    }
 
+    private void initLayoutCrews(View view) {
+        View include = view.findViewById(R.id.include_crew);
+        pbCrew = include.findViewById(R.id.progressbar_recycler);
+        TextView tvCastTitle = include.findViewById(R.id.text_recycler_title);
+        tvCastTitle.setText(R.string.title_crew);
+        RecyclerView recyclerView = include.findViewById(R.id.recycler_movies);
+        recyclerView.setAdapter(crewAdapter);
+    }
     @Override
     public void onLoadedTvSeries(TvSeries tvSeries) {
         pbInfo.setVisibility(View.GONE);
@@ -146,11 +198,27 @@ public class MovieInformationFragment extends Fragment implements TvInfoContract
     @Override
     public void onLoadedReviews(List<Review> reviews) {
         reviewAdapter.setReviews(reviews);
+        if (reviews.size() == 0) {
+            onLoadReviewsFailed();
+        }
     }
 
     @Override
     public void onLoadReviewsFailed() {
         rvReview.setVisibility(View.GONE);
         tvNoResult.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onLoadedCredit(Credit credit) {
+        Log.d("abcde", credit.toString());
+        castAdapter.updateData(credit.getCasts());
+        crewAdapter.updateData(credit.getCrews());
+    }
+
+    @Override
+    public void onLoadedCreditFailed() {
+        Log.d("abcde", "onLoadedCreditFailed");
+
     }
 }

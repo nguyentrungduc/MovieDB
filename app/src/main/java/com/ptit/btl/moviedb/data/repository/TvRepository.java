@@ -1,5 +1,6 @@
 package com.ptit.btl.moviedb.data.repository;
 
+import com.ptit.btl.moviedb.data.source.CreditDataSource;
 import com.ptit.btl.moviedb.data.source.TvDataSource;
 import com.ptit.btl.moviedb.data.source.remote.TvSeriesRemoteDataSource;
 
@@ -36,5 +37,13 @@ public class TvRepository {
 
     public void getSeason(int id, TvDataSource.LoadSeasonCallback callback) {
         remoteDataSource.getSeason(id, callback);
+    }
+
+    public void getSimilarTvShows(int id, TvDataSource.LoadTvCallback callback) {
+        remoteDataSource.getSimilarTvShows(id, callback);
+    }
+
+    public void getCredit(int id, CreditDataSource.LoadProductionsCallback callback) {
+        remoteDataSource.getCredits(id, callback);
     }
 }

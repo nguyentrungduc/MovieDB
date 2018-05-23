@@ -24,7 +24,7 @@ public class CastAdapter extends BaseRecyclerViewAdapter<CastAdapter.ItemViewHol
     private List<Cast> mCasts = new ArrayList<>();
     private LoadCastDataCallback mCallback;
 
-    CastAdapter(@NonNull Context context,
+    public CastAdapter(@NonNull Context context,
                 LoadCastDataCallback callback) {
         super(context);
         mCallback = callback;
@@ -48,7 +48,7 @@ public class CastAdapter extends BaseRecyclerViewAdapter<CastAdapter.ItemViewHol
         return mCasts == null ? 0 : mCasts.size();
     }
 
-    void updateData(List<Cast> casts) {
+    public void updateData(List<Cast> casts) {
         if (casts == null) return;
         mCasts.clear();
         mCasts.addAll(casts);
@@ -86,7 +86,7 @@ public class CastAdapter extends BaseRecyclerViewAdapter<CastAdapter.ItemViewHol
         }
     }
 
-    interface LoadCastDataCallback {
+    public interface LoadCastDataCallback {
         void onItemCastClicked(Cast cast);
     }
 }

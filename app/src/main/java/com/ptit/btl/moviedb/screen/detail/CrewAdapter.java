@@ -24,7 +24,7 @@ public class CrewAdapter extends BaseRecyclerViewAdapter<CrewAdapter.ItemViewHol
     private List<Crew> mCrews = new ArrayList<>();
     private LoadCrewDataCallback mCallback;
 
-    CrewAdapter(@NonNull Context context,
+    public CrewAdapter(@NonNull Context context,
                 LoadCrewDataCallback callback) {
         super(context);
         mCallback = callback;
@@ -48,7 +48,7 @@ public class CrewAdapter extends BaseRecyclerViewAdapter<CrewAdapter.ItemViewHol
         return mCrews == null ? 0 : mCrews.size();
     }
 
-    void updateData(List<Crew> crews) {
+    public void updateData(List<Crew> crews) {
         if (crews == null) return;
         mCrews.clear();
         mCrews.addAll(crews);
@@ -87,7 +87,7 @@ public class CrewAdapter extends BaseRecyclerViewAdapter<CrewAdapter.ItemViewHol
         }
     }
 
-    interface LoadCrewDataCallback {
+    public interface LoadCrewDataCallback {
         void onItemCrewClicked(Crew crew);
     }
 }

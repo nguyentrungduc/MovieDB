@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import com.ptit.btl.moviedb.R;
 import com.ptit.btl.moviedb.data.model.tv.TvSeries;
 import com.ptit.btl.moviedb.screen.BaseActivity;
+import com.ptit.btl.moviedb.screen.tvdetail.similar.TvSimilarFragment;
 import com.ptit.btl.moviedb.screen.tvdetail.tvinfo.MovieInformationFragment;
 import com.ptit.btl.moviedb.screen.tvdetail.tvseason.TVSeasonFragment;
 
@@ -38,6 +39,7 @@ public class TvDetailActivity extends BaseActivity {
     public void changeFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, fragment).commit();
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,16 +58,12 @@ public class TvDetailActivity extends BaseActivity {
                         changeFragment(MovieInformationFragment.getInstance(tv));
                         break;
 
-                    case R.id.action_cast_crew:
+                    case R.id.action_season:
                         changeFragment(TVSeasonFragment.getInstance(tv));
                         break;
 
-                    case R.id.action_season:
-
-                        break;
-
                     case R.id.action_related_movie:
-
+                        changeFragment(TvSimilarFragment.newInstance(tv, TvDetailActivity.this));
                         break;
                 }
                 return true;
@@ -95,6 +93,10 @@ public class TvDetailActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    public void changeActivity(TvSeries series) {
+        startActivity(getInstance(getApplicationContext(), series));
     }
 
 }

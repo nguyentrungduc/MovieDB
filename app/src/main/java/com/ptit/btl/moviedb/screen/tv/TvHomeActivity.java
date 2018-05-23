@@ -1,10 +1,10 @@
 package com.ptit.btl.moviedb.screen.tv;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -12,29 +12,16 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.ptit.btl.moviedb.R;
-import com.ptit.btl.moviedb.data.model.User;
 import com.ptit.btl.moviedb.data.model.tv.TvSeries;
 import com.ptit.btl.moviedb.screen.BaseActivity;
-import com.ptit.btl.moviedb.screen.movies.MoviesByFavourite;
-import com.ptit.btl.moviedb.screen.movies.MoviesBySearchActivity;
 import com.ptit.btl.moviedb.screen.tv.TvSeriesAdapter.TvSeriesClick;
 import com.ptit.btl.moviedb.screen.tvdetail.TvDetailActivity;
-import com.ptit.btl.moviedb.util.EndlessRecyclerOnScrollListener;
-import com.ptit.btl.moviedb.util.StringUtils;
+import com.ptit.btl.moviedb.screen.tvlist.TvListActivity;
 
-import org.json.JSONObject;
-
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -115,9 +102,15 @@ public class TvHomeActivity extends BaseActivity implements TvHomeContract.View,
 
 
     @Override
-    public void onLoadPopularTvSuccess(List<TvSeries> tvSeries) {
+    public void onLoadPopularTvSuccess(final List<TvSeries> tvSeries) {
         Log.d(TAG, tvSeries.toString());
         tvViewMorePopular.setText("View more " + tvSeries.size() + " of popular TV series");
+        tvViewMorePopular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(TvListActivity.newInstance(getApplicationContext(), (ArrayList<TvSeries>) tvSeries, "Popular"));
+            }
+        });
         popularAdapter.setTvSeries(tvSeries.subList(0, 4));
         pbPopular.setVisibility(View.GONE);
     }
@@ -128,8 +121,14 @@ public class TvHomeActivity extends BaseActivity implements TvHomeContract.View,
     }
 
     @Override
-    public void onLoadTopRateTvSuccess(List<TvSeries> tvSeries) {
+    public void onLoadTopRateTvSuccess(final List<TvSeries> tvSeries) {
         tvViewMoreTopRated.setText("View more " + tvSeries.size() + " of top rated TV series");
+        tvViewMoreTopRated.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(TvListActivity.newInstance(getApplicationContext(), (ArrayList<TvSeries>) tvSeries, "Top Rated"));
+            }
+        });
         topRateAdapter.setTvSeries(tvSeries.subList(0, 4));
         pbTopRated.setVisibility(View.GONE);
     }

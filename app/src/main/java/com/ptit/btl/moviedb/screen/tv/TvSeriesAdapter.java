@@ -88,7 +88,7 @@ public class TvSeriesAdapter extends RecyclerView.Adapter<TvSeriesAdapter.TvSeri
         }
     }
 
-    interface TvSeriesClick{
+    public interface TvSeriesClick{
         void onTvSeriesClick(TvSeries tvSeries);
     }
 }
