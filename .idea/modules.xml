@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MovieDB.iml" filepath="$PROJECT_DIR$/MovieDB.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\MovieDB\MovieDB\moviedb_12-develop.iml" filepath="D:\MovieDB\MovieDB\moviedb_12-develop.iml" />
     </modules>
   </component>
 </project>

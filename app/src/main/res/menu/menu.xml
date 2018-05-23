@@ -13,4 +13,11 @@
             android:title="@string/title_television" />
     </group>
 
+    <group android:id="@+id/grp_logout">
+        <item
+            android:icon="@drawable/ic_logout"
+            android:id="@+id/item_logout"
+            android:title="@string/title_logout" />
+    </group>
+
 </menu>

@@ -45,6 +45,7 @@ import com.ptit.btl.moviedb.data.source.local.MoviesDatabaseHelper;
 import com.ptit.btl.moviedb.data.source.local.UserLocalDataSource;
 import com.ptit.btl.moviedb.screen.BaseActivity;
 import com.ptit.btl.moviedb.screen.detail.DetailActivity;
+import com.ptit.btl.moviedb.screen.login.LoginActivity;
 import com.ptit.btl.moviedb.screen.movies.MoviesByFavourite;
 import com.ptit.btl.moviedb.screen.movies.MoviesByGenreActivity;
 import com.ptit.btl.moviedb.screen.movies.MoviesBySearchActivity;
@@ -59,6 +60,8 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by admin on 25/4/18.
  */
@@ -72,11 +75,11 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
         mProgressBarUpcoming, mProgressBarTopRate, mProgressBarGenres;
     private EndlessRecyclerOnScrollListener mPopularOnScrollListener,
         mNowPlayingOnScrollListener, mUpcomingOnScrollListener, mTopRateOnScrollListener;
-    CallbackManager mCallbackManager;
-    LoginButton mLoginButton;
     private ImageView imv;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
+    private TextView mTextView;
+    private CircleImageView mCircleImageView;
     private static final String TAG = HomeActivity.class.toString();
 
     public static Intent getInstance(Context context) {
@@ -86,7 +89,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_home);
         MoviesDatabaseHelper.getInstance(this);
         mPresenter = new HomePresenter(getMovieRepository(),
@@ -101,8 +103,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
         initToolbar();
         loadMovies();
         initNetworkBroadcast();
-        mLoginButton = findViewById(R.id.loginButton);
         mPresenter.loadUser();
+
     }
 
     private void initMoviesAdapters() {
@@ -136,6 +138,9 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
         TextView textView = include.findViewById(R.id.text_recycler_title);
         textView.setText(R.string.title_popular);
         mProgressBarPopular = include.findViewById(R.id.progressbar_recycler);
+        View mHeader = mNavigationView.getHeaderView(0);
+        mTextView = mHeader.findViewById(R.id.text_view_username);
+        mCircleImageView = mHeader.findViewById(R.id.img_avatar);
         RecyclerView recyclerView = include.findViewById(R.id.recycler_movies);
         recyclerView.setAdapter(mPopularMoviesAdapter);
         mPopularOnScrollListener = new EndlessRecyclerOnScrollListener(
@@ -237,13 +242,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
                 startActivity(MoviesByFavourite.getInstance(getApplicationContext()));
             }
         });
-        findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onLogin");
-                onLoginFacebook();
-            }
-        });
     }
 
     private void loadMovies() {
@@ -336,99 +334,13 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
     @Override
     public void onLoadUserSucess(User user) {
         Glide.with(this).load(user.getImageLink())
-                .into(imv);
+                .into(mCircleImageView);
+        mTextView.setText(user.getUserName());
     }
 
     @Override
-    public void onLoadUserFailed() {
-
-    }
-
-    @Override
-    public void onLoginFacebook() {
-
-        mCallbackManager = CallbackManager.Factory.create();
-
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
-        mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-
-                    Log.d(TAG, "sc");
-                    Log.d(TAG, loginResult.getAccessToken().getToken() +" "+  loginResult.getAccessToken().getUserId());
-
-
-                    mLoginButton.setReadPermissions(Arrays.asList(
-                            "public_profile", "email", "user_birthday","user_about_me", "user_friends","user_photos","user_education_history","user_work_history",
-                            "user_posts","read_custom_friendlists","user_friends","user_likes"));
-
-                    AccessToken.getCurrentAccessToken().getPermissions();
-
-                final GraphRequest request = GraphRequest.newMeRequest(
-                        AccessToken.getCurrentAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object,
-                                                    GraphResponse response) {
-                                Log.d(TAG,"aaa"+ object.toString());
-                                String mName = object.optString(getString(R.string.title_name));
-                                String mId = object.optString(getString(R.string.title_id));
-                                String mGender = object.optString(getString(R.string.title_gender));
-                                String mEmail = object.optString(getString(R.string.title_email));
-                                String mLink = object.optString(getString(R.string.title_link));
-                                User user = new User(mId, mName, StringUtils.getURLAvatar(mId));
-                                mPresenter.saveUser(user);
-
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString(getString(R.string.fields), getString(R.string.fields_name));
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
-
-            @Override
-            public void onCancel() {
-                onLoginFacebookCanceled();
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                onLoadUserFailed();
-            }
-        });
-
-    }
-
-    @Override
-    public void onLoginFacebookFailed() {
-        Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
-
-    }
-
-    @Override
-    public void onLoginFacebookCanceled() {
-        Toast.makeText(this, "Canceled Login", Toast.LENGTH_SHORT).show();
-
-    }
-
-    @Override
-    public void openUserScreen() {
-        startActivity(TimelineActivity.getInstance(this));
-
-    }
-
-    @Override
-    public void onSaveUserSucess(User user) {
-        Glide.with(this).load(user.getImageLink())
-                .into(imv);
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    public void showLoginScreen() {
+        startActivity(LoginActivity.getInstance(this));
     }
 
     @Override
@@ -445,12 +357,19 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Nav
         switch (item.getItemId()) {
             case R.id.item_home:
                 Log.d(TAG, "homeclick");
+                mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.item_television:
                 Log.d(TAG, "televisionclick");
                 Intent intent = new Intent(getApplicationContext(), TvHomeActivity.class);
                 startActivity(intent);
+                mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
+            case R.id.item_logout:
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                mPresenter.logOut();
+                break;
+
 
         }
         return true;

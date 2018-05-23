@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.ptit.btl.moviedb.R;
 import com.ptit.btl.moviedb.screen.BaseActivity;
 import com.ptit.btl.moviedb.screen.home.HomeActivity;
+import com.ptit.btl.moviedb.screen.login.LoginActivity;
 import com.ptit.btl.moviedb.util.Constant;
 
 import java.util.Timer;
@@ -32,7 +33,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                startActivity(HomeActivity.getInstance(
+                startActivity(LoginActivity.getInstance(
                     getApplicationContext()));
                 finish();
             }

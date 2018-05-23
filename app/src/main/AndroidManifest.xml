@@ -28,7 +28,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".screen.home.HomeActivity"
@@ -63,20 +62,21 @@
             android:screenOrientation="landscape" />
         <activity android:name=".screen.movies.MoviesByGenreActivity" />
         <activity android:name=".screen.movies.MoviesByFavourite" />
-        <activity android:name=".screen.timeline.TimelineActivity"></activity>
+        <activity android:name=".screen.timeline.TimelineActivity" />
         <activity
             android:name=".screen.cast.CastInformationActivity"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".screen.movies.MovieContainerActivity"
-            android:theme="@style/AppTheme">
-        </activity>
-        <activity android:name=".screen.tv.TvHomeActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".screen.tv.TvHomeActivity"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".screen.tvdetail.TvDetailActivity"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".screen.login.LoginActivity">
 
-        <activity android:name=".screen.tvdetail.TvDetailActivity"
-            android:theme="@style/AppTheme">
         </activity>
         <activity android:name=".screen.tvlist.TvListActivity"
             android:theme="@style/AppTheme">
